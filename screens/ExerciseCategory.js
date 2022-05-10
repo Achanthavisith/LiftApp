@@ -1,13 +1,19 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, Appearance } from 'react-native'
 import React from 'react'
 
-const ExerciseCategory = (data) => {
+import { Colors } from '../styles/theme'
+
+const colorScheme = Appearance.getColorScheme();
+
+const ExerciseCategory = ( {data} ) => {
   return (
-      <SafeAreaView>
-            <View>
-                <Text>ExerciseCategory</Text>
-            </View>
-      </SafeAreaView>
+    <View>
+      <Text style={colorScheme === 'dark' ? 
+        {color: Colors.white} : {color: Colors.black}}
+      >
+        {data.name}
+      </Text>
+    </View>
   )
 }
 

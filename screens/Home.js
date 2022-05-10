@@ -5,23 +5,40 @@ import axios from 'axios';
 import ExerciseCategory from './ExerciseCategory'
 import Header from './Header'
 
+import {API_KEY} from '@env'
+
 const Home = () => {
     const [exerciseCategory, setExerciseCategory] = useState([]);
+    const [exercises, setExercises] = useState([]);
 
-    const getExerciseCategory = async () => {
+    useEffect(() => {
+      const getExerciseCategory = async () => {
         await axios.get('https://wger.de/api/v2/exercisecategory/',
         {headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Token a4aee96886c81cd3b733ebea961631c3f1a24506'
+            'Authorization': API_KEY
         }}).then((response) => {
             setExerciseCategory(response.data.results);
           });   
     }
-
-    useEffect(() => {
-      getExerciseCategory();
+    getExerciseCategory();
     }, []);
 
+    useEffect(() => {
+      const getExercises = async () => {
+        await axios.get('https://wger.de/api/v2/exerciseinfo/?limit=30',
+          {headers: {
+            'Content-Type': 'application/json',
+            'Authorization': API_KEY
+            }}).then((response) => {
+              setExercises(response.data.results);
+              });   
+    }
+    getExercises();
+    }, []);
+
+    console.log(exercises)
+    
   return (
     <SafeAreaView>
           <View>

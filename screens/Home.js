@@ -24,6 +24,9 @@ const Home = () => {
     getExerciseCategory();
     }, []);
 
+    console.log(exerciseCategory);
+
+    /*
     useEffect(() => {
       const getExercises = async () => {
         await axios.get('https://wger.de/api/v2/exerciseinfo/?limit=30',
@@ -38,6 +41,8 @@ const Home = () => {
     }, []);
 
     console.log(exercises)
+
+  */
     
   return (
     <SafeAreaView>

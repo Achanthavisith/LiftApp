@@ -22,10 +22,12 @@ const MyStack = () => {
           <Stack.Screen 
           name="ExerciseCategory" 
           component={ExerciseCategory} 
+          options={ {headerShown:false } }
           />
           <Stack.Screen 
           name="Exercise" 
           component={Exercise} 
+          options={ {headerShown:false } }
           />
         </Stack.Navigator>
       </NavigationContainer>

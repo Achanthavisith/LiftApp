@@ -1,24 +1,41 @@
-import { View, Text, Appearance } from "react-native";
-import React from "react";
+import { View, Text, Appearance, StyleSheet } from 'react-native'
+import React from 'react'
 
-import { Colors } from "../styles/theme";
+import { Colors } from '../styles/theme'
+import CategoryCard from '../components/CategoryCard';
 
 const colorScheme = Appearance.getColorScheme();
 
-const ExerciseCategory = ({ data }) => {
+const ExerciseCategory = ( {data} ) => {
   return (
     <View>
-      <Text
-        style={
-          colorScheme === "dark"
-            ? { color: Colors.white }
-            : { color: Colors.black }
-        }
-      >
-        {data.name}
-      </Text>
+      <View >
+        <CategoryCard category={data} />
+      </View>
     </View>
-  );
-};
+  )
+}
 
-export default ExerciseCategory;
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+  bigBlue: {
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  red: {
+    color: 'red',
+  },
+
+  white: {
+    color: 'white',
+  },
+
+  black: {
+    color: 'black'
+  }
+});
+
+export default ExerciseCategory

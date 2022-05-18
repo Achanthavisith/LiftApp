@@ -17,17 +17,12 @@ const MyStack = () => {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={ {headerShown:false } }
+            options={ {headerShown:false} }
           />
           <Stack.Screen 
-          name="ExerciseCategory" 
-          component={ExerciseCategory} 
-          options={ {headerShown:false } }
-          />
-          <Stack.Screen 
-          name="Exercise" 
-          component={Exercise} 
-          options={ {headerShown:false } }
+            name="Exercise" 
+            component={Exercise} 
+            options={ {headerShown:false} }
           />
         </Stack.Navigator>
       </NavigationContainer>

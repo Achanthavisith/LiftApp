@@ -6,7 +6,7 @@ import { Colors, Sizes } from "../styles/theme"
 
 const colorScheme = Appearance.getColorScheme();
 
-const CategoryCard = ( {category} ) => {
+const CategoryCard = ( {data} ) => {
 
     const navigation = useNavigation();
 
@@ -15,12 +15,12 @@ const CategoryCard = ( {category} ) => {
             margin: Sizes.medium,
             borderRadius: Sizes.small,  
         }} 
-            onPress={()=> navigation.navigate("Exercise")}
+            onPress={()=> navigation.navigate("Exercise", {categoryId: data.id}, console.log(data.id))}
         >
             <Text style={colorScheme === 'dark' ? 
                 {color: Colors.white} : {color: Colors.black}}
             >
-                {category.name}</Text>
+                {data.name}</Text>
         </TouchableOpacity>
     )
 }

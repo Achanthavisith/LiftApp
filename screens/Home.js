@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import ExerciseCategory from './ExerciseCategory'
+import CategoryCard from '../components/CategoryCard';
 import Header from './Header'
 
 import {API_KEY} from '@env'
@@ -50,7 +50,7 @@ const Home = () => {
           <View>
             <FlatList
               data={exerciseCategory}
-              renderItem={({item}) => <ExerciseCategory data={item} />}
+              renderItem={({item}) => <CategoryCard data={item} />}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
               ListHeaderComponent={<Header />}

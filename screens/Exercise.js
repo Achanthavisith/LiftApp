@@ -6,17 +6,16 @@ import {API_KEY} from '@env'
 
 import { Colors, Sizes } from "../styles/theme"
 
-const Exercise = ( { categoryId } ) => {
-  
-  console.log(categoryId);
+const Exercise = ( {route, navigation} ) => {
 
   const [exercises, setExercises] = useState([]);
   const colorScheme = Appearance.getColorScheme();
 
-    /*
+  console.log(route.params.categoryId)
+    
     useEffect(() => {
       const getExercises = async () => {
-        await axios.get('https://wger.de/api/v2/exercise/?category='+category+'&language=2&limit=100',
+        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=100',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY
@@ -28,16 +27,21 @@ const Exercise = ( { categoryId } ) => {
     }, []);
 
     console.log(exercises)
-    */
+
 
   return (
     <SafeAreaView>
       <View>
-            <Text style={colorScheme === 'dark' ? 
+      <FlatList
+              data={exercises}
+              renderItem={({item}) => <Text style={colorScheme === 'dark' ? 
               {color: Colors.white} : {color: Colors.black}}
               >
-                Exercise
-            </Text>
+                {item.name}
+            </Text>}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+      />
       </View>
     </SafeAreaView>
   )

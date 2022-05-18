@@ -5,12 +5,12 @@ import CategoryCard from '../components/CategoryCard';
 
 const colorScheme = Appearance.getColorScheme();
 
-const ExerciseCategory = ( {data} ) => {
+const ExerciseCategory = () => {
 
   return (
     <View>
       <View >
-        <CategoryCard category={data} />
+        <Text>ExerciseCategory</Text>
       </View>
     </View>
   )

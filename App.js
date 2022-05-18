@@ -33,12 +33,12 @@ function HomeScreen() {
 }
 
 function ExerciseCategories({ navigation: { navigate } }) {
-  const numbers = [1, 2, 3, 4, 5];
+  //const numbers = [1, 2, 3, 4, 5];
   return (
     <View>
       <Button
         title="redirect to exercise category"
-        onPress={() => navigate("Abs", { names: ["Brent", "Satya", "Michaś"] })}
+        onPress={() => navigate("Abs")}
       />
       <Button />
     </View>
@@ -63,8 +63,8 @@ export default function App() {
     >
       <Stack.Navigator>
         <Stack.Screen
-          name="fuck"
-          component={UselessTextInput}
+          name="Testing stuff"
+          component={Home}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Abs" component={AbsCategory} />

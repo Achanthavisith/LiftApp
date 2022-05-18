@@ -29,7 +29,7 @@ const Home = () => {
     /*
     useEffect(() => {
       const getExercises = async () => {
-        await axios.get('https://wger.de/api/v2/exerciseinfo/?limit=30',
+        await axios.get('https://wger.de/api/v2/exercise/?category=12&language=2&limit=100',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY
@@ -41,8 +41,9 @@ const Home = () => {
     }, []);
 
     console.log(exercises)
+    */
 
-  */
+  
     
   return (
     <SafeAreaView>

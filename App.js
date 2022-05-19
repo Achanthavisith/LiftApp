@@ -1,10 +1,10 @@
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Appearance } from 'react-native';
 
 
 import Home from './screens/Home';
-import ExerciseCategory from './screens/ExerciseCategory';
+import ExerciseCategory from './screens/ExerciseCategory'; 
 import Exercise from './screens/Exercise';
 
 const Stack = createNativeStackNavigator();
@@ -12,7 +12,7 @@ const colorScheme = Appearance.getColorScheme();
 
 const MyStack = () => {
   return (
-      <NavigationContainer theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
@@ -20,7 +20,7 @@ const MyStack = () => {
             options={ {headerShown:false} }
           />
           <Stack.Screen 
-            name="Exercise" 
+            name="Exercises" 
             component={Exercise} 
             options={ {headerShown:false} }
           />

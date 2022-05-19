@@ -1,10 +1,8 @@
-import { View, Text, Appearance, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet  } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 
-import { Colors, Sizes } from "../styles/theme"
-
-const colorScheme = Appearance.getColorScheme();
+import { Colors, Sizes, Fonts } from "../styles/theme"
 
 const CategoryCard = ( {data} ) => {
 
@@ -15,14 +13,31 @@ const CategoryCard = ( {data} ) => {
             margin: Sizes.medium,
             borderRadius: Sizes.small,  
         }} 
-            onPress={()=> navigation.navigate("Exercise", {categoryId: data.id}, console.log(data.id))}
+            onPress={()=> 
+                navigation.navigate(
+                    "Exercises", 
+                    {categoryId: data.id})
+            }
         >
-            <Text style={colorScheme === 'dark' ? 
-                {color: Colors.white} : {color: Colors.black}}
-            >
-                {data.name}</Text>
+            <Text style={styles.light}>
+                {data.name}
+            </Text>
         </TouchableOpacity>
     )
 }
+
+const styles = StyleSheet.create ({
+    light: {
+        textAlign: 'center',
+        color: 'blue',
+        fontSize: Fonts.small 
+    }, 
+
+    dark: {
+        textAlign: 'center',
+        color: 'blue',
+        fontSize: Fonts.small 
+    }
+})
 
 export default CategoryCard

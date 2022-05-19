@@ -7,14 +7,7 @@ const ExerciseCard = ( {data} ) => {
 
     return (
         <View>
-            <View style={{
-                    backgroundColor: Colors.almond,
-                    padding: Sizes.large, 
-                    margin : Sizes.medium,
-                    height: 70,
-                    justifyContent: 'center',
-                    borderRadius: Sizes.large, 
-                }}>
+            <View style={styles.exerciseProp}>
                 <Text style={styles.light}
                 >
                     {data.name}
@@ -31,11 +24,18 @@ const styles = StyleSheet.create ({
         fontSize: Fonts.small 
     }, 
 
-    dark: {
-        textAlign: 'center',
-        color: 'blue',
-        fontSize: Fonts.small 
-    }
+    exerciseProp: {
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        backgroundColor: Colors.almond,
+        padding: Sizes.large, 
+        margin : Sizes.large,
+        height: 80,
+        justifyContent: 'center',
+        borderRadius: Sizes.large, 
+    },
 })
 
 export default ExerciseCard

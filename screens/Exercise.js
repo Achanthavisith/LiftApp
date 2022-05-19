@@ -37,6 +37,7 @@ const Exercise = ( {route, navigation} ) => {
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
               ListHeaderComponent={<Header />}
+              stickyHeaderIndices={[0]}
       />
       </View>
     </SafeAreaView>

@@ -9,19 +9,22 @@ const CategoryCard = ( {data} ) => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity style={{
-            margin: Sizes.medium,
-            borderRadius: Sizes.small,  
-        }} 
+        <TouchableOpacity 
             onPress={()=> 
                 navigation.navigate(
                     "Exercises", 
                     {categoryId: data.id})
             }
         >
-            <Text style={styles.light}>
-                {data.name}
-            </Text>
+            <View style={styles.exerciseProp}>
+                <View>
+
+                </View>
+        
+                <Text style={styles.light}>
+                    {data.name}
+                </Text>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -33,11 +36,18 @@ const styles = StyleSheet.create ({
         fontSize: Fonts.small 
     }, 
 
-    dark: {
-        textAlign: 'center',
-        color: 'blue',
-        fontSize: Fonts.small 
-    }
+    exerciseProp: {
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        backgroundColor: Colors.almond,
+        padding: Sizes.large, 
+        margin : Sizes.large,
+        height: 80,
+        justifyContent: 'center',
+        borderRadius: Sizes.large, 
+    },
 })
 
 export default CategoryCard

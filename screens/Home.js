@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import { View, SafeAreaView, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import CategoryCard from '../components/CategoryCard';
-import { Colors, Sizes } from "../styles/theme"
+import { Colors } from "../styles/theme"
 
 import {API_KEY} from '@env'
 

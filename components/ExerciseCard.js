@@ -1,31 +1,22 @@
-import { View, Text, TouchableOpacity, StyleSheet  } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
-import React from 'react'
-
+import { View, Text, Appearance, StyleSheet } from 'react-native'
 import { Colors, Sizes, Fonts } from "../styles/theme"
+import { useEffect, useState } from "react"
 
-const CategoryCard = ( {data} ) => {
+const ExerciseCard = ( {data, equipment} ) => {
 
-    const navigation = useNavigation();
+
+    const getListofEquipment = data.equipment.map( (requiredEquipment) => 
+            <Text> {equipment.find(el => el.id === requiredEquipment)?.name} </Text>) 
 
     return (
-        <TouchableOpacity 
-            onPress={()=> 
-                navigation.navigate(
-                    "Exercises", 
-                    {categoryId: data.id})
-            }
-        >
+        <View>
             <View style={styles.exerciseProp}>
-                <View>
-
-                </View>
-        
                 <Text style={styles.light}>
                     {data.name}
                 </Text>
+                <View style = {{flexDirection:'row', justifyContent: 'center'} }>{getListofEquipment}</View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -50,4 +41,4 @@ const styles = StyleSheet.create ({
     },
 })
 
-export default CategoryCard
+export default ExerciseCard

@@ -1,18 +1,18 @@
-import { View, Text, FlatList, SafeAreaView, Appearance } from 'react-native'
+import { View, FlatList, SafeAreaView } from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import {API_KEY} from '@env'
 
-import { Colors, Sizes } from "../styles/theme"
+import ExerciseCard from '../components/ExerciseCard';
+import Header from '../components/Header';
+import { Colors } from "../styles/theme"
 
-const Exercise = ( {route, navigation} ) => {
+const Exercise = ( {route} ) => {
 
   const [exercises, setExercises] = useState([]);
-  const colorScheme = Appearance.getColorScheme();
+  const [equipment, setEquipment] = useState([]);
 
-  console.log(route.params.categoryId)
-    
     useEffect(() => {
       const getExercises = async () => {
         await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=100',
@@ -23,24 +23,34 @@ const Exercise = ( {route, navigation} ) => {
               setExercises(response.data.results);
               });   
     }
+
+    const getEquipment = async () => {
+      await axios.get('https://wger.de/api/v2/equipment',
+        {headers: {
+          'Content-Type': 'application/json',
+          'Authorization': API_KEY
+          }}).then((response) => {
+            setEquipment(response.data.results);
+            });   
+  }
+
+    getEquipment();
     getExercises();
     }, []);
 
-    console.log(exercises)
-
-
   return (
-    <SafeAreaView>
-      <View>
+    <SafeAreaView style={{backgroundColor: Colors.wood}}>
+      <View style={{
+        backgroundColor: Colors.wood,
+        height: '100%'
+      }}>
       <FlatList
               data={exercises}
-              renderItem={({item}) => <Text style={colorScheme === 'dark' ? 
-              {color: Colors.white} : {color: Colors.black}}
-              >
-                {item.name}
-            </Text>}
+              renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
+              ListHeaderComponent={<Header />}
+              stickyHeaderIndices={[0]}
       />
       </View>
     </SafeAreaView>

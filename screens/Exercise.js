@@ -1,4 +1,4 @@
-import { View, Text, FlatList, SafeAreaView } from 'react-native'
+import { View, FlatList, SafeAreaView } from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -6,11 +6,12 @@ import {API_KEY} from '@env'
 
 import ExerciseCard from '../components/ExerciseCard';
 import Header from '../components/Header';
-import { Colors, Sizes } from "../styles/theme"
+import { Colors } from "../styles/theme"
 
-const Exercise = ( {route, navigation} ) => {
+const Exercise = ( {route} ) => {
 
   const [exercises, setExercises] = useState([]);
+  const [equipment, setEquipment] = useState([]);
 
     useEffect(() => {
       const getExercises = async () => {
@@ -22,6 +23,18 @@ const Exercise = ( {route, navigation} ) => {
               setExercises(response.data.results);
               });   
     }
+
+    const getEquipment = async () => {
+      await axios.get('https://wger.de/api/v2/equipment',
+        {headers: {
+          'Content-Type': 'application/json',
+          'Authorization': API_KEY
+          }}).then((response) => {
+            setEquipment(response.data.results);
+            });   
+  }
+
+    getEquipment();
     getExercises();
     }, []);
 
@@ -33,7 +46,7 @@ const Exercise = ( {route, navigation} ) => {
       }}>
       <FlatList
               data={exercises}
-              renderItem={({item}) => <ExerciseCard data ={item} />}
+              renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
               ListHeaderComponent={<Header />}

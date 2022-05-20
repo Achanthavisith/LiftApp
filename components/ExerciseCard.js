@@ -1,9 +1,22 @@
 import { View, Text, Appearance, StyleSheet } from 'react-native'
-import React from 'react'
-
 import { Colors, Sizes, Fonts } from "../styles/theme"
+import { useEffect, useState } from "react"
 
-const ExerciseCard = ( {data} ) => {
+const ExerciseCard = ( {data, equipment} ) => {
+
+    const getEquipment = () => {
+        if (data.equipment == "") {
+            console.log('no equipment found')
+        } else {
+            data.equipment.map(async(requiredEquipment) => {
+                let stuff = await equipment.find(el => el.id === requiredEquipment)
+                console.log('equipment found')
+                } 
+            )
+        }
+    }
+    getEquipment();
+
 
     return (
         <View>

@@ -4,27 +4,17 @@ import { useEffect, useState } from "react"
 
 const ExerciseCard = ( {data, equipment} ) => {
 
-    const getEquipment = () => {
-        if (data.equipment == "") {
-            console.log('no equipment found')
-        } else {
-            data.equipment.map(async(requiredEquipment) => {
-                let stuff = await equipment.find(el => el.id === requiredEquipment)
-                console.log('equipment found')
-                } 
-            )
-        }
-    }
-    getEquipment();
 
+    const getListofEquipment = data.equipment.map( (requiredEquipment) => 
+            <Text> {equipment.find(el => el.id === requiredEquipment)?.name} </Text>) 
 
     return (
         <View>
             <View style={styles.exerciseProp}>
-                <Text style={styles.light}
-                >
+                <Text style={styles.light}>
                     {data.name}
                 </Text>
+                <View style = {{flexDirection:'row', justifyContent: 'center'} }>{getListofEquipment}</View>
             </View>
         </View>
     )

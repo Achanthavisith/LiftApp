@@ -1,4 +1,4 @@
-import { View, FlatList, SafeAreaView } from 'react-native'
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -12,15 +12,19 @@ const Exercise = ( {route} ) => {
 
   const [exercises, setExercises] = useState([]);
   const [equipment, setEquipment] = useState([]);
+  const [loading, isLoading] = useState(true);
 
     useEffect(() => {
       const getExercises = async () => {
-        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=100',
+        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY
             }}).then((response) => {
               setExercises(response.data.results);
+              isLoading(false);
+              }).catch((err) => {
+                console.log(err)
               });   
     }
 
@@ -31,7 +35,9 @@ const Exercise = ( {route} ) => {
           'Authorization': API_KEY
           }}).then((response) => {
             setEquipment(response.data.results);
-            });   
+            }).catch((err) => {
+              console.log(err)
+            });    
   }
 
     getEquipment();
@@ -44,14 +50,24 @@ const Exercise = ( {route} ) => {
         backgroundColor: Colors.wood,
         height: '100%'
       }}>
-      <FlatList
-              data={exercises}
-              renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              ListHeaderComponent={<Header />}
-              stickyHeaderIndices={[0]}
-      />
+        {loading ? 
+          <View style={{
+              flex: 1, 
+              alignItems: 'center',
+              justifyContent: 'center', }}
+          >
+            <ActivityIndicator size="large" color={Colors.blue}/>
+          </View> 
+          :
+          <FlatList
+                data={exercises}
+                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={<Header />}
+                stickyHeaderIndices={[0]}
+          />
+        }
       </View>
     </SafeAreaView>
   )

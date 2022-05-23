@@ -10,17 +10,17 @@ const MyStack = () => {
   return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="Categories"
-            component={Home}
-            options={ {headerShown:false} }
-          />
-          <Stack.Screen 
-            name="Exercises" 
-            component={Exercise} 
-            options={ {headerShown:false} }
-          />
-        </Stack.Navigator>
+            <Stack.Screen
+              name="Categories"
+              component={Home}
+              options={ {headerShown:false} }
+            />
+            <Stack.Screen 
+              name="Exercises" 
+              component={Exercise} 
+              options={ {headerShown:false} }
+            />
+          </Stack.Navigator>
       </NavigationContainer>
   );
 };

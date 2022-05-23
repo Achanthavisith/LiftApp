@@ -2,7 +2,8 @@ export const Colors = {
     black: "#000000",
     wood: `#deb887`,
     almond: '#ffe4c4',
-    grey: '#e6e6fa'
+    grey: '#e6e6fa',
+    blue: "#4169e1"
 }
 
 export const Sizes = {

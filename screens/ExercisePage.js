@@ -1,4 +1,4 @@
-import { View, Text, Appearance, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 const ExerciseCategory = () => {
 

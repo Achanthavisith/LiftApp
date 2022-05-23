@@ -32,8 +32,9 @@ const CategoryCard = ( {data} ) => {
 const styles = StyleSheet.create ({
     light: {
         textAlign: 'center',
-        color: 'blue',
-        fontSize: Fonts.small 
+        color: Colors.blue,
+        fontSize: Fonts.small,
+        fontWeight: 'bold'
     }, 
 
     exerciseProp: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create ({
         backgroundColor: Colors.almond,
         padding: Sizes.large, 
         margin : Sizes.large,
-        height: 80,
+        height: 120,
         justifyContent: 'center',
         borderRadius: Sizes.large, 
     },

@@ -12,8 +12,6 @@ const Home = () => {
     const [exerciseCategory, setExerciseCategory] = useState([]);
     const [loading, isLoading] = useState(true);
 
-
-
     useEffect(() => {
       const getExerciseCategory = async () => {
         await axios.get('https://wger.de/api/v2/exercisecategory/',

@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const ExerciseCard = ( {data, equipment} ) => {
 
-
-
     const getListofEquipment = data.equipment.map( (requiredEquipment) => 
             <Text key={requiredEquipment} style={{padding: Sizes.small}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
 

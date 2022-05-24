@@ -13,12 +13,6 @@ const CategoryCard = ({ data }) => {
     >
       <View style={styles.exerciseProp}>
         <View>
-          <Image
-            style={styles.image}
-            source={require("../assets/muscle-vector-" +
-              data.name.toLowerCase() +
-              ".png")}
-          />
         </View>
 
         <Text style={styles.light}>{data.name}</Text>

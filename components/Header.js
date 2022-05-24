@@ -45,10 +45,16 @@ const styles = StyleSheet.create ({
   Header: {
       marginBottom: Sizes.extraLarge,
       backgroundColor: Colors.wood,
+      shadowColor: Colors.black,
+      shadowOffset: {width: 0, height: 7},
+      shadowOpacity: 0.2,
+      borderBottomWidth: 1,
+      borderColor: Colors.grey,
+     
   }, 
 
   searchBar: {
-    backgroundColor: Colors.grey,
+    backgroundColor: Colors.almond,
     borderRadius: Sizes.small,
     flexDirection: 'row',
     padding: Sizes.large,
@@ -59,7 +65,7 @@ const styles = StyleSheet.create ({
   catHeader: {
     color: Colors.blue,
     fontWeight: 'bold',
-    fontSize: Fonts.large,
+    fontSize: Fonts.small,
     marginBottom: Sizes.extraLarge,
     textAlign: 'center',
     width: '100%',

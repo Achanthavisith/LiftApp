@@ -10,7 +10,7 @@ import {YT_KEY} from '@env'
 const ExercisePage = ( {route} ) => {
 
   const [videoList, setVideoList] = useState([]);
-  const [loading, isLoading] = useState(false);
+  const [loading, isLoading] = useState(true);
 
   useEffect(() => {
     const getVideoList = async () => {

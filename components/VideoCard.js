@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import YoutubePlayer from 'react-native-youtube-iframe'
 
 import { Colors, Sizes, Fonts } from "../styles/theme"
 
@@ -7,29 +8,25 @@ const VideoCard = ( {data} ) => {
     const video = data.snippet;
 
     return (
-        <TouchableOpacity>
+        <View>
             <View style={styles.videoCard}>
-                <Image 
-                    style={{
-                        overflow: 'hidden',
-                        borderTopLeftRadius: Sizes.medium,
-                        borderTopRightRadius: Sizes.medium,
-                    }}
-                    source={{
-                        uri: data.snippet.thumbnails.high.url, height:200, flex:1 }} 
+                <YoutubePlayer 
+                    height={230}
+                    play={false}
+                    videoId={data.id.videoId}
                 />
                 <Text style={styles.videoCardText}>
                     {video.title}
                 </Text>
 
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create ({
     videoCard: {
-        marginBottom: Sizes.small,
+        marginBottom: Sizes.extraLarge,
         backgroundColor: Colors.almond,
         margin: Sizes.small,
         borderRadius: Sizes.medium,
@@ -37,7 +34,6 @@ const styles = StyleSheet.create ({
         shadowOffset: {width: -2, height: 4},
         shadowOpacity: 0.2,
         shadowRadius: 3,
-        
     }, 
 
     videoCardText : {

@@ -1,15 +1,24 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Colors, Sizes, Fonts } from "../styles/theme"
+import { useNavigation } from '@react-navigation/native';
 
 
 const ExerciseCard = ( {data, equipment} ) => {
 
 
+
     const getListofEquipment = data.equipment.map( (requiredEquipment) => 
             <Text key={requiredEquipment} style={{padding: Sizes.small}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
 
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity>
+        <TouchableOpacity 
+            onPress={()=> 
+                navigation.navigate(
+                "Exercise Videos", 
+                {exerciseData: data})
+                }>
             <View>
                 <View style={styles.exerciseProp}>
                     <Text style={styles.light}>

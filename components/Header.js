@@ -1,50 +1,73 @@
-import { View, Text, StyleSheet, TextInput, Image } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { View, Text, StyleSheet, TextInput, Image} from 'react-native'
+import { useRoute } from '@react-navigation/native'
 
-import { Colors, Fonts, Sizes } from "../styles/theme";
-import SearchIcon from "../assets/search.png";
 
-const Header = () => {
+import { Colors, Fonts, Sizes } from '../styles/theme'
+import SearchIcon from '../assets/search.png'
+
+
+const Header = ( { onSearch } ) => {
+
   const route = useRoute();
-
   return (
-    <View style={{ backgroundColor: Colors.wood }}>
-      <Text style={styles.light}>{route.name}</Text>
+    <View style={styles.Header}>
 
-      {route.name === "Exercises" ? (
-        <View
-          style={{
-            backgroundColor: Colors.grey,
-            borderRadius: Sizes.small,
-            margin: Sizes.large,
-            padding: Sizes.extraLarge,
-            flexDirection: "row",
-          }}
-        >
-          <Image
+      <View style={{flexDirection: 'row'}}>
+        <Text style={styles.catHeader}>
+            {route.name}
+        </Text>
+      </View>
+      
+      {route.name === 'Exercises' ? 
+        <View style={styles.searchBar}> 
+          <Image 
             source={SearchIcon}
-            style={{ width: 20, height: 20, marginRight: Sizes.small }}
+            style={{ width:20, height: 20, marginRight: Sizes.small}}
           />
           <TextInput
             placeholder="Search Exercise"
-            color="blue"
-            style={{ flex: 1 }}
+            color={Colors.blue}
+            placeholderTextColor={Colors.blue}
+            style={{flex:1}}
+            onChangeText={onSearch}
           />
-        </View>
-      ) : (
-        <></>
-      )}
+        </View> 
+          : 
+        <>
+
+        </>}
+      
     </View>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create({
-  light: {
-    textAlign: "center",
-    color: "blue",
-    fontSize: Fonts.small,
-    padding: 10,
+const styles = StyleSheet.create ({
+  Header: {
+      marginBottom: Sizes.extraLarge,
+      backgroundColor: Colors.wood,
+  }, 
+
+  searchBar: {
+    backgroundColor: Colors.grey,
+    borderRadius: Sizes.small,
+    flexDirection: 'row',
+    padding: Sizes.large,
+    marginHorizontal: 8,
+    marginBottom: Sizes.extraLarge
   },
-});
 
-export default Header;
+  catHeader: {
+    color: Colors.blue,
+    fontWeight: 'bold',
+    fontSize: Fonts.large,
+    marginBottom: Sizes.extraLarge,
+    textAlign: 'center',
+    width: '100%',
+  },
+
+  backButton: {
+  }
+
+})
+
+export default Header

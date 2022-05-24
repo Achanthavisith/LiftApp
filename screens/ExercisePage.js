@@ -1,19 +1,19 @@
-import { View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native'
-import axios from "axios"
-import { useState, useEffect } from 'react'
+import { View, SafeAreaView, ActivityIndicator, FlatList } from "react-native";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-import { Colors } from "../styles/theme"
-import VideoCard from '../components/VideoCard'
-import Header from '../components/Header';
-import {YT_KEY} from '@env'
+import { Colors } from "../styles/theme";
+import VideoCard from "../components/VideoCard";
+import Header from "../components/Header";
+import { YT_KEY } from "@env";
 
-const ExercisePage = ( {route} ) => {
-
+const ExercisePage = ({ route }) => {
   const [videoList, setVideoList] = useState([]);
   const [loading, isLoading] = useState(true);
 
   useEffect(() => {
     const getVideoList = async () => {
+<<<<<<< Updated upstream
       await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%gym%%How%to%Exercise&key='+ YT_KEY+'/',
         {headers: {
           'Content-Type': 'application/json'
@@ -24,39 +24,65 @@ const ExercisePage = ( {route} ) => {
               console.log(err + "videoList")
             });   
   }
+=======
+      await axios
+        .get(
+          "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=" +
+            route.params.exerciseData.name +
+            "exercise&key=" +
+            YT_KEY,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setVideoList(response.data.items);
+          isLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+>>>>>>> Stashed changes
 
-  getVideoList();
+    getVideoList();
   }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.wood}}>
-      <View style={{
-        backgroundColor: Colors.wood,
-        height: '100%'
-      }}>
-        {loading ? 
-          <View style={{
-              flex: 1, 
-              alignItems: 'center',
-              justifyContent: 'center', }}
+    <SafeAreaView style={{ backgroundColor: Colors.wood }}>
+      <View
+        style={{
+          backgroundColor: Colors.wood,
+          height: "100%",
+        }}
+      >
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            <ActivityIndicator size="large" color={Colors.blue}/>
-          </View> 
-          :
+            <ActivityIndicator size="large" color={Colors.blue} />
+          </View>
+        ) : (
           <>
             <FlatList
-                data={videoList}
-                renderItem={({item}) => <VideoCard data ={item}/>}
-                keyExtractor={(item) => item.id.videoId}
-                showsVerticalScrollIndicator={false}
-                ListHeaderComponent={<Header />}
-                stickyHeaderIndices={[0]}
+              data={videoList}
+              renderItem={({ item }) => <VideoCard data={item} />}
+              keyExtractor={(item) => item.id.videoId}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={<Header />}
+              stickyHeaderIndices={[0]}
             />
           </>
-        }
+        )}
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ExercisePage
+export default ExercisePage;

@@ -6,7 +6,7 @@ import { Colors, Fonts, Sizes } from '../styles/theme'
 import SearchIcon from '../assets/search.png'
 
 
-const Header = () => {
+const Header = ( { handleSearch } ) => {
 
   const route = useRoute();
   const navigation = useNavigation();

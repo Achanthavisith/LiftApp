@@ -14,6 +14,16 @@ const Exercise = ( {route} ) => {
   const [equipment, setEquipment] = useState([]);
   const [loading, isLoading] = useState(true);
 
+  const [filter, setFilter] = useState('');
+
+  const handleSearch = (value) => {
+    if(value.length) {
+      setFilter(value.toLowerCase())
+    }else {
+      setFilter('');
+    }
+  }
+
     useEffect(() => {
       const getExercises = async () => {
         await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60',
@@ -60,11 +70,14 @@ const Exercise = ( {route} ) => {
           </View> 
           :
           <FlatList
-                data={exercises}
+                data={exercises.filter(exercises => {
+                  return (
+                    exercises.name.toLowerCase().includes(filter))
+                  })}
                 renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
-                ListHeaderComponent={<Header />}
+                ListHeaderComponent={<Header onSearch={handleSearch} />}
                 stickyHeaderIndices={[0]}
           />
         }

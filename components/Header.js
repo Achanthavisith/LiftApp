@@ -1,16 +1,14 @@
 import { View, Text, StyleSheet, TextInput, Image} from 'react-native'
-import { useRoute, useNavigation } from '@react-navigation/native'
-import Button from '../components/Button'
+import { useRoute } from '@react-navigation/native'
+
 
 import { Colors, Fonts, Sizes } from '../styles/theme'
 import SearchIcon from '../assets/search.png'
 
 
-const Header = ( { handleSearch } ) => {
+const Header = ( { onSearch } ) => {
 
   const route = useRoute();
-  const navigation = useNavigation();
-
   return (
     <View style={styles.Header}>
 
@@ -31,6 +29,7 @@ const Header = ( { handleSearch } ) => {
             color={Colors.blue}
             placeholderTextColor={Colors.blue}
             style={{flex:1}}
+            onChangeText={onSearch}
           />
         </View> 
           : 

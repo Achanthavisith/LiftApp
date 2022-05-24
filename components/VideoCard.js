@@ -16,7 +16,7 @@ const VideoCard = ( {data} ) => {
                         borderTopRightRadius: Sizes.medium,
                     }}
                     source={{
-                        uri: data.snippet.thumbnails.high.url, width:'100%',height:200}} 
+                        uri: data.snippet.thumbnails.high.url, height:200, flex:1 }} 
                 />
                 <Text style={styles.videoCardText}>
                     {video.title}

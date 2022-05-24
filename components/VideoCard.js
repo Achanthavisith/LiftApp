@@ -11,9 +11,10 @@ const VideoCard = ( {data} ) => {
         <View>
             <View style={styles.videoCard}>
                 <YoutubePlayer 
-                    height={230}
+                    height={225}
                     play={false}
                     videoId={data.id.videoId}
+                    
                 />
                 <Text style={styles.videoCardText}>
                     {video.title}
@@ -29,7 +30,6 @@ const styles = StyleSheet.create ({
         marginBottom: Sizes.extraLarge,
         backgroundColor: Colors.almond,
         margin: Sizes.small,
-        borderRadius: Sizes.medium,
         shadowColor: '#000000',
         shadowOffset: {width: -2, height: 4},
         shadowOpacity: 0.2,
@@ -37,9 +37,9 @@ const styles = StyleSheet.create ({
     }, 
 
     videoCardText : {
-        padding: Sizes.medium,
+        padding: Sizes.extraLarge,
         color: Colors.blue,
-        fontSize: Fonts.small,
+        fontSize: 16,
     }
 })
 

@@ -14,21 +14,19 @@ const ExercisePage = ( {route} ) => {
 
   useEffect(() => {
     const getVideoList = async () => {
-      await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'howto&key='+ YT_KEY,
+      await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%gym%%How%to%Exercise&key='+ YT_KEY+'/',
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
             setVideoList(response.data.items)
             isLoading(false);
             }).catch((err) => {
-              console.log(err)
+              console.log(err + "videoList")
             });   
   }
 
   getVideoList();
   }, []);
-
-  console.log(videoList);
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>

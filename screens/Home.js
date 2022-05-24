@@ -22,7 +22,7 @@ const Home = () => {
             setExerciseCategory(response.data.results);
             isLoading(false);
           }).catch((err) => {
-            console.log(err)
+            console.log(err + "exerciseCategory")
           });   
     }
     getExerciseCategory();

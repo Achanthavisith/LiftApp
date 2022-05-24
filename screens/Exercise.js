@@ -26,7 +26,7 @@ const Exercise = ( {route} ) => {
 
     useEffect(() => {
       const getExercises = async () => {
-        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60',
+        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY
@@ -34,12 +34,12 @@ const Exercise = ( {route} ) => {
               setExercises(response.data.results);
               isLoading(false);
               }).catch((err) => {
-                console.log(err)
+                console.log(err + "exercises")
               });   
     }
 
     const getEquipment = async () => {
-      await axios.get('https://wger.de/api/v2/equipment',
+      await axios.get('https://wger.de/api/v2/equipment/',
         {headers: {
           'Content-Type': 'application/json',
           'Authorization': API_KEY

@@ -46,7 +46,7 @@ const styles = StyleSheet.create ({
       marginBottom: Sizes.extraLarge,
       backgroundColor: Colors.wood,
       shadowColor: Colors.black,
-      shadowOffset: {width: 0, height: 7},
+      shadowOffset: {width: 0, height: 5},
       shadowOpacity: 0.2,
       borderBottomWidth: 1,
       borderColor: Colors.grey,

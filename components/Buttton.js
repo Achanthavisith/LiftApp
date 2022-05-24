@@ -1,23 +1,20 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import React from "react";
 
-const Buttton = ( {data} ) => {
-    return (
-        <TouchableOpacity>
-            <Text style={styles.light}>
-                {data.name}
-            </Text>
-        </TouchableOpacity>
-    )
-}
+const Buttton = ({ data }) => {
+  return (
+    <TouchableOpacity>
+      <Text style={styles.light}>{data.name}</Text>
+    </TouchableOpacity>
+  );
+};
 
-const styles = StyleSheet.create ({
-    light: {
-        textAlign: 'center',
-        color: 'blue',
-        fontSize: Fonts.small 
-    }, 
+const styles = StyleSheet.create({
+  light: {
+    textAlign: "center",
+    color: "green",
+    fontSize: Fonts.small,
+  },
+});
 
-})
-
-export default Buttton
+export default Buttton;

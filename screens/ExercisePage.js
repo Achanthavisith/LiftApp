@@ -21,7 +21,7 @@ const ExercisePage = ( {route} ) => {
             setVideoList(response.data.items)
             isLoading(false);
             }).catch((err) => {
-              console.log(err + "videoList")
+              console.log(err + " videoList")
             });   
   }
 

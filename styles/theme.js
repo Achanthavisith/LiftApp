@@ -18,3 +18,11 @@ export const Fonts = {
     medium: 30,
     large: 40,
 }
+
+export const Font = {
+    bold: "InterBold",
+    semiBold: "InterSemiBold",
+    medium: "InterMedium",
+    regular: "InterRegular",
+    light: "InterLight",
+};

@@ -29,12 +29,12 @@ const Exercise = ( {route} ) => {
         await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
           {headers: {
             'Content-Type': 'application/json',
-            'Authorization': API_KEY
+            'Authorization': API_KEY,
             }}).then((response) => {
               setExercises(response.data.results);
               isLoading(false);
               }).catch((err) => {
-                console.log(err + "exercises")
+                console.log(err + " exercises")
               });   
     }
 
@@ -42,7 +42,7 @@ const Exercise = ( {route} ) => {
       await axios.get('https://wger.de/api/v2/equipment/',
         {headers: {
           'Content-Type': 'application/json',
-          'Authorization': API_KEY
+          'Authorization': API_KEY,
           }}).then((response) => {
             setEquipment(response.data.results);
             }).catch((err) => {

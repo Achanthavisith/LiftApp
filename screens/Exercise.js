@@ -74,7 +74,7 @@ const Exercise = ( {route} ) => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
                   })}
-                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
+                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment} catName={route.params.categoryName}/>}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}

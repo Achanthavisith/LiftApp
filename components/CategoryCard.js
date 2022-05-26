@@ -5,11 +5,15 @@ import React from "react";
 import { Colors, Sizes, Fonts, Font } from "../styles/theme";
 
 const CategoryCard = ({ data }) => {
+
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Exercises", { categoryId: data.id })}
+      onPress={() => navigation.navigate("Exercises", { 
+        categoryId: data.id, 
+        categoryName: data.name,
+      })}
     >
       <View style={styles.exerciseProp}>
         <View>

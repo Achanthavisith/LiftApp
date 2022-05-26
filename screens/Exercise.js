@@ -13,6 +13,7 @@ const Exercise = ( {route} ) => {
   const [exercises, setExercises] = useState([]);
   const [equipment, setEquipment] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [error, setError] = useState(true);
 
   const [filter, setFilter] = useState('');
 
@@ -25,42 +26,43 @@ const Exercise = ( {route} ) => {
   }
 
     useEffect(() => {
-      const getExercises = async () => {
 
-        while(loading) {
+      const getExercises = async () => {
+        if(error) {
           await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY,
             }}).then((response) => {
               setExercises(response.data.results);
-              isLoading(false);
+              setError(false);
             }).catch((err) => {
+              setExercises([]);
+              setError(true);
               console.log(err + " exercises");
-              isLoading(true);
             })
-        }   
+        }
       }
 
     const getEquipment = async () => {
-
-      while(loading) {
+      if(error) {
         await axios.get('https://wger.de/api/v2/equipment/',
         {headers: {
           'Content-Type': 'application/json',
           'Authorization': API_KEY,
           }}).then((response) => {
             setEquipment(response.data.results);
-            isLoading(false);
+            setError(false);
           }).catch((err) => {
+            setEquipment([]);
             console.log(err);
-            isLoading(true);
-          });  
-      }
-  }
-
+          });
+        }
+    }
+    
     getEquipment();
     getExercises();
+    isLoading(false);
     }, []);
 
   return (
@@ -75,11 +77,6 @@ const Exercise = ( {route} ) => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <FlatList
-                    style={{width: '100%'}}
-                    ListHeaderComponent={<Header />}
-                    stickyHeaderIndices={[0]}
-                  />
                     <ActivityIndicator size="large" color={Colors.blue} style={{ 
                     alignItems: 'center',
                     justifyContent: 'center',

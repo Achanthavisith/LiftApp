@@ -43,11 +43,6 @@ const ExercisePage = ( {route} ) => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <FlatList
-                    style={{width: '100%'}}
-                    ListHeaderComponent={<Header />}
-                    stickyHeaderIndices={[0]}
-                  />
                     <ActivityIndicator size="large" color={Colors.blue} style={{ 
                     alignItems: 'center',
                     justifyContent: 'center',

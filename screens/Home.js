@@ -45,10 +45,6 @@ const Home = () => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <FlatList
-                    ListHeaderComponent={<Header />}
-                    stickyHeaderIndices={[0]}
-                  />
                     <ActivityIndicator size="large" color={Colors.blue} style={{ 
                     alignItems: 'center',
                     justifyContent: 'center',

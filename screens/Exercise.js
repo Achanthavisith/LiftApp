@@ -29,12 +29,12 @@ const Exercise = ( {route} ) => {
         await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
           {headers: {
             'Content-Type': 'application/json',
-            'Authorization': API_KEY
+            'Authorization': API_KEY,
             }}).then((response) => {
               setExercises(response.data.results);
               isLoading(false);
               }).catch((err) => {
-                console.log(err + "exercises")
+                console.log(err + " exercises")
               });   
     }
 
@@ -42,7 +42,7 @@ const Exercise = ( {route} ) => {
       await axios.get('https://wger.de/api/v2/equipment/',
         {headers: {
           'Content-Type': 'application/json',
-          'Authorization': API_KEY
+          'Authorization': API_KEY,
           }}).then((response) => {
             setEquipment(response.data.results);
             }).catch((err) => {
@@ -74,7 +74,7 @@ const Exercise = ( {route} ) => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
                   })}
-                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment}/>}
+                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment} catName={route.params.categoryName}/>}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}

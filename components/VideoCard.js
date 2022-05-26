@@ -1,11 +1,9 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import YoutubePlayer from 'react-native-youtube-iframe'
 
-import { Colors, Sizes, Fonts } from "../styles/theme"
+import { Colors, Sizes, Font } from "../styles/theme"
 
 const VideoCard = ( {data} ) => {
-
-    const video = data.snippet;
 
     return (
         <View>
@@ -17,7 +15,7 @@ const VideoCard = ( {data} ) => {
                     
                 />
                 <Text style={styles.videoCardText}>
-                    {video.title}
+                    {data.snippet.title}
                 </Text>
 
             </View>
@@ -39,7 +37,7 @@ const styles = StyleSheet.create ({
     videoCardText : {
         padding: Sizes.extraLarge,
         color: Colors.blue,
-        fontSize: 16,
+        fontFamily: Font.regular
     }
 })
 

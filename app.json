@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "lift-me-up",
+    "name": "Lift Me Up",
     "slug": "lift-me-up",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#deb887"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -28,6 +28,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "•\tOpen-Source REST API Implemented: https://wger.de/en/\n•\tReturns exercises per muscle group then displaying demonstrations of the exercise on YouTube.\n",
+    "githubUrl": "https://github.com/Achanthavisith/LiftApp"
   }
 }

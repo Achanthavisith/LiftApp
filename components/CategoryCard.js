@@ -1,15 +1,19 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View,Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 
-import { Colors, Sizes, Fonts } from "../styles/theme";
+import { Colors, Sizes, Fonts, Font } from "../styles/theme";
 
 const CategoryCard = ({ data }) => {
+
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Exercises", { categoryId: data.id })}
+      onPress={() => navigation.navigate("Exercises", { 
+        categoryId: data.id, 
+        categoryName: data.name,
+      })}
     >
       <View style={styles.exerciseProp}>
         <View>
@@ -26,7 +30,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Colors.blue,
     fontSize: Fonts.small,
-    fontWeight: "bold",
+    fontFamily: Font.semiBold
   },
 
   exerciseProp: {

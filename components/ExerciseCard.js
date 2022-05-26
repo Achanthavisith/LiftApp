@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Colors, Sizes, Fonts } from "../styles/theme"
+import { Colors, Sizes, Fonts, Font } from "../styles/theme"
 import { useNavigation } from '@react-navigation/native';
 
 
-const ExerciseCard = ( {data, equipment} ) => {
+const ExerciseCard = ( {data, equipment, catName} ) => {
 
     const getListofEquipment = data.equipment.map( (requiredEquipment) => 
-            <Text key={requiredEquipment} style={{padding: Sizes.small}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
+            <Text key={requiredEquipment} style={{padding: Sizes.small, fontFamily: Font.light}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
 
     const navigation = useNavigation();
 
@@ -14,8 +14,10 @@ const ExerciseCard = ( {data, equipment} ) => {
         <TouchableOpacity 
             onPress={()=> 
                 navigation.navigate(
-                "Exercise Videos", 
-                {exerciseData: data})
+                "Exercise Videos", {
+                    exerciseData: data,
+                    categoryName: catName
+                })
                 }>
             <View>
                 <View style={styles.exerciseProp}>
@@ -34,7 +36,7 @@ const styles = StyleSheet.create ({
         textAlign: 'center',
         color: Colors.blue,
         fontSize: Fonts.small, 
-        fontWeight: 'bold'
+        fontFamily: Font.semiBold
     }, 
 
     exerciseProp: {

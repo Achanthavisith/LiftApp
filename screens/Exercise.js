@@ -74,6 +74,7 @@ const Exercise = ( {route} ) => {
               {loading ? 
                 <>
                   <View style={{ 
+                    flex:1,
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>

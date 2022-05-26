@@ -35,13 +35,23 @@ const ExercisePage = ( {route} ) => {
         height: '100%'
       }}>
         {loading ? 
-          <View style={{
-              flex: 1, 
-              alignItems: 'center',
-              justifyContent: 'center', }}
-          >
-            <ActivityIndicator size="large" color={Colors.blue}/>
-          </View> 
+            <>
+              <View style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center', 
+                  }}>
+                    <FlatList
+                    style={{width: '100%'}}
+                    ListHeaderComponent={<Header />}
+                    stickyHeaderIndices={[0]}
+                  />
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
+              </View> 
+          </>
           :
           <>
             <FlatList

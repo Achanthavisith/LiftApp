@@ -34,8 +34,8 @@ const Exercise = ( {route} ) => {
               setExercises(response.data.results);
               isLoading(false);
               }).catch((err) => {
-                console.log(err + " exercises")
-              });   
+                console.log(err + " exercises");
+              }, []);   
     }
 
     const getEquipment = async () => {
@@ -46,7 +46,7 @@ const Exercise = ( {route} ) => {
           }}).then((response) => {
             setEquipment(response.data.results);
             }).catch((err) => {
-              console.log(err)
+              console.log(err);
             });    
   }
 
@@ -57,17 +57,27 @@ const Exercise = ( {route} ) => {
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
       <View style={{
-        backgroundColor: Colors.wood,
-        height: '100%'
-      }}>
-        {loading ? 
-          <View style={{
-              flex: 1, 
-              alignItems: 'center',
-              justifyContent: 'center', }}
-          >
-            <ActivityIndicator size="large" color={Colors.blue}/>
-          </View> 
+            backgroundColor: Colors.wood,
+            height: "100%"
+            }}>
+              {loading ? 
+                <>
+                  <View style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center', 
+                  }}>
+                    <FlatList
+                    style={{width: '100%'}}
+                    ListHeaderComponent={<Header />}
+                    stickyHeaderIndices={[0]}
+                  />
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
+                  </View> 
+                </> 
           :
           <FlatList
                 data={exercises.filter(exercises => {

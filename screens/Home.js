@@ -38,13 +38,20 @@ const Home = () => {
               {loading ? 
                 <>
                   <View style={{ 
-                    flex: 1, 
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue}/>
+                    <FlatList
+                    ListHeaderComponent={<Header />}
+                    stickyHeaderIndices={[0]}
+                  />
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
                     <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{marginTop: 70, fontFamily: Font.semiBold, color: Colors.blue, fontSize: Fonts.small}}>Still Loading?</Text>
+                      <Text style={{fontFamily: Font.semiBold, color: Colors.blue, fontSize: Fonts.small}}>Still Loading?</Text>
                     </TouchableOpacity>
                   </View> 
                 </>

@@ -13,6 +13,12 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "chanthavisith.andrew@gmail.com",
+        "ascAppId": "1626355785",
+        "appleTeamId": "JBF6FTA62P"
+      }
+    }
   }
 }

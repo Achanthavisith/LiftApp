@@ -11,23 +11,27 @@ import {API_KEY} from '@env'
 const Home = () => {
     const [exerciseCategory, setExerciseCategory] = useState([]);
     const [loading, isLoading] = useState(true);
-    const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
       const getExerciseCategory = async () => {
-        await axios.get('https://wger.de/api/v2/exercisecategory/',
-        {headers: {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY,
-        }}).then((response) => {
-            setExerciseCategory(response.data.results);
-            isLoading(false);
-          }).catch((err) => {
-            console.log(err + " exerciseCategory")
-          });   
-    }
+
+        while(loading){
+          await axios.get('https://wger.de/api/v2/exercisecategory/',
+            {headers: {
+              'Content-Type': 'application/json',
+              'Authorization': API_KEY,
+            }}).then((response) => {
+              setExerciseCategory(response.data.results);
+              isLoading(false);
+            }).catch((err) => {
+              console.log(err + " exerciseCategory");
+              isLoading(true);
+            });   
+          }
+        }
+        
     getExerciseCategory();
-    }, [refresh]);
+    }, []);
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -50,9 +54,6 @@ const Home = () => {
                     justifyContent: 'center',
                     height: '80%'
                   }}/>
-                    <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{fontFamily: Font.semiBold, color: Colors.blue, fontSize: Fonts.small}}>Still Loading?</Text>
-                    </TouchableOpacity>
                   </View> 
                 </>
                 : 

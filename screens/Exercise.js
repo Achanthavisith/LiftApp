@@ -42,28 +42,34 @@ const Exercise = ( {route} ) => {
               console.log(err + " exercises");
             })
         }
+        setError(true);
       }
 
-    const getEquipment = async () => {
-      if(error) {
-        await axios.get('https://wger.de/api/v2/equipment/',
-        {headers: {
-          'Content-Type': 'application/json',
-          'Authorization': API_KEY,
-          }}).then((response) => {
-            setEquipment(response.data.results);
-            setError(false);
-          }).catch((err) => {
-            setEquipment([]);
-            console.log(err);
-          });
-        }
-    }
-    
-    getEquipment();
     getExercises();
-    isLoading(false);
     }, []);
+
+    useEffect(() => {
+
+      const getEquipment = async () => {
+        if(error) {
+          await axios.get('https://wger.de/api/v2/equipment/',
+          {headers: {
+            'Content-Type': 'application/json',
+            'Authorization': API_KEY,
+            }}).then((response) => {
+              setEquipment(response.data.results);
+              setError(false);
+            }).catch((err) => {
+              setEquipment([]);
+              console.log(err);
+            });
+          }
+          setError(true);
+      }
+
+      getEquipment();
+      isLoading(false);
+    }, [])
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>

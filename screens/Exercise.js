@@ -13,6 +13,7 @@ const Exercise = ( {route} ) => {
   const [exercises, setExercises] = useState([]);
   const [equipment, setEquipment] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [error, setError] = useState(true);
 
   const [filter, setFilter] = useState('');
 
@@ -25,49 +26,71 @@ const Exercise = ( {route} ) => {
   }
 
     useEffect(() => {
+
       const getExercises = async () => {
-        await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
+        if(error) {
+          await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY,
             }}).then((response) => {
               setExercises(response.data.results);
-              isLoading(false);
-              }).catch((err) => {
-                console.log(err + " exercises")
-              });   
-    }
-
-    const getEquipment = async () => {
-      await axios.get('https://wger.de/api/v2/equipment/',
-        {headers: {
-          'Content-Type': 'application/json',
-          'Authorization': API_KEY,
-          }}).then((response) => {
-            setEquipment(response.data.results);
+              setError(false);
             }).catch((err) => {
-              console.log(err)
-            });    
-  }
+              setExercises([]);
+              setError(true);
+              console.log(err + " exercises");
+            })
+        }
+        setError(true);
+      }
 
-    getEquipment();
     getExercises();
     }, []);
+
+    useEffect(() => {
+
+      const getEquipment = async () => {
+        if(error) {
+          await axios.get('https://wger.de/api/v2/equipment/',
+          {headers: {
+            'Content-Type': 'application/json',
+            'Authorization': API_KEY,
+            }}).then((response) => {
+              setEquipment(response.data.results);
+              setError(false);
+            }).catch((err) => {
+              setEquipment([]);
+              console.log(err);
+            });
+          }
+          setError(true);
+      }
+
+      getEquipment();
+      isLoading(false);
+    }, [])
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
       <View style={{
-        backgroundColor: Colors.wood,
-        height: '100%'
-      }}>
-        {loading ? 
-          <View style={{
-              flex: 1, 
-              alignItems: 'center',
-              justifyContent: 'center', }}
-          >
-            <ActivityIndicator size="large" color={Colors.blue}/>
-          </View> 
+            backgroundColor: Colors.wood,
+            height: "100%"
+            }}>
+              {loading ? 
+                <>
+                  <View style={{ 
+                    flex:1,
+                    alignItems: 'center',
+                    justifyContent: 'center', 
+                  }}>
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
+                  </View> 
+                </> 
           :
           <FlatList
                 data={exercises.filter(exercises => {

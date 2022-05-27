@@ -13,16 +13,19 @@ const ExercisePage = ( {route} ) => {
   const [loading, isLoading] = useState(true);
 
   useEffect(() => {
+
+
     const getVideoList = async () => {
-      await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=How%to%'+route.params.exerciseData.name+'%'+route.params.categoryName+'%exercise&key='+ YT_KEY,
+        await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=How%to%'+route.params.exerciseData.name+'%'+route.params.categoryName+'%exercise&key='+ YT_KEY,
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
-            setVideoList(response.data.items)
+            setVideoList(response.data.items);
             isLoading(false);
             }).catch((err) => {
               console.log(err + " videoList")
-            });   
+              isLoading(true);
+            });
   }
 
   getVideoList();
@@ -35,13 +38,19 @@ const ExercisePage = ( {route} ) => {
         height: '100%'
       }}>
         {loading ? 
-          <View style={{
-              flex: 1, 
-              alignItems: 'center',
-              justifyContent: 'center', }}
-          >
-            <ActivityIndicator size="large" color={Colors.blue}/>
-          </View> 
+            <>
+              <View style={{ 
+                    flex:1,
+                    alignItems: 'center',
+                    justifyContent: 'center', 
+                  }}>
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
+              </View> 
+          </>
           :
           <>
             <FlatList

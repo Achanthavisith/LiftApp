@@ -2,7 +2,7 @@ import { View,Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 
-import { Colors, Sizes, Fonts, Font } from "../styles/theme";
+import { Colors, Sizes, Font } from "../styles/theme";
 
 const CategoryCard = ({ data }) => {
 
@@ -16,8 +16,6 @@ const CategoryCard = ({ data }) => {
       })}
     >
       <View style={styles.exerciseProp}>
-        <View>
-        </View>
 
         <Text style={styles.light}>{data.name}</Text>
       </View>
@@ -29,7 +27,6 @@ const styles = StyleSheet.create({
   light: {
     textAlign: "center",
     color: Colors.blue,
-    fontSize: Fonts.small,
     fontFamily: Font.semiBold
   },
 

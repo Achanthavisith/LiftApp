@@ -1,7 +1,7 @@
 import { View,TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React from 'react'
 
-import { Colors, Sizes, Fonts } from "../styles/theme"
+import { Colors, Fonts } from "../styles/theme"
 
 const Button = ( {name, img, onPress} ) => {
     return (
@@ -10,7 +10,7 @@ const Button = ( {name, img, onPress} ) => {
                 <Image
                     source={img}
                     resizeMode='contain'
-                    style={{ width: 40, height: 40, marginLeft: Sizes.extraLarge, marginRight: 40}}
+                    style={{ width: 40, height: 40, }}
                 />
             </View>
         </TouchableOpacity>

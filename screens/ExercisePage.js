@@ -13,8 +13,6 @@ const ExercisePage = ( {route} ) => {
   const [loading, isLoading] = useState(true);
 
   useEffect(() => {
-
-
     const getVideoList = async () => {
         await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=How%to%'+route.params.exerciseData.name+'%'+route.params.categoryName+'%exercise&key='+ YT_KEY,
         {headers: {
@@ -27,7 +25,6 @@ const ExercisePage = ( {route} ) => {
               isLoading(true);
             });
   }
-
   getVideoList();
   }, []);
 

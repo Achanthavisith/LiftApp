@@ -1,4 +1,4 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator, TouchableOpacity,Text } from 'react-native';
+import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -14,7 +14,6 @@ const Home = () => {
 
     useEffect(() => {
       const getExerciseCategory = async () => {
-
         while(loading){
           await axios.get('https://wger.de/api/v2/exercisecategory/',
             {headers: {
@@ -28,8 +27,8 @@ const Home = () => {
               isLoading(true);
             });   
           }
-        }
-        
+          console.log('fetched categories');
+        }  
     getExerciseCategory();
     }, []);
 

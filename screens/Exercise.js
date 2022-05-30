@@ -9,12 +9,9 @@ import Header from '../components/Header';
 import { Colors } from "../styles/theme"
 
 const Exercise = ( {route} ) => {
-
   const [exercises, setExercises] = useState([]);
-  const [equipment, setEquipment] = useState([]);
   const [loading, isLoading] = useState(true);
   const [error, setError] = useState(true);
-
   const [filter, setFilter] = useState('');
 
   const handleSearch = (value) => {
@@ -25,8 +22,7 @@ const Exercise = ( {route} ) => {
     }
   }
 
-    useEffect(() => {
-
+  useEffect(() => {
       const getExercises = async () => {
         if(error) {
           await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
@@ -36,40 +32,16 @@ const Exercise = ( {route} ) => {
             }}).then((response) => {
               setExercises(response.data.results);
               setError(false);
+              isLoading(false)
             }).catch((err) => {
               setExercises([]);
               setError(true);
               console.log(err + " exercises");
             })
         }
-        setError(true);
       }
-
     getExercises();
-    }, []);
-
-    useEffect(() => {
-
-      const getEquipment = async () => {
-        if(error) {
-          await axios.get('https://wger.de/api/v2/equipment/',
-          {headers: {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY,
-            }}).then((response) => {
-              setEquipment(response.data.results);
-              setError(false);
-            }).catch((err) => {
-              setEquipment([]);
-              console.log(err);
-            });
-          }
-          setError(true);
-      }
-
-      getEquipment();
-      isLoading(false);
-    }, [])
+  }, [error]);
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -84,11 +56,7 @@ const Exercise = ( {route} ) => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: '80%'
-                  }}/>
+                    <ActivityIndicator size="large" color={Colors.blue} />
                   </View> 
                 </> 
           :
@@ -97,7 +65,7 @@ const Exercise = ( {route} ) => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
                   })}
-                renderItem={({item}) => <ExerciseCard data ={item} equipment={equipment} catName={route.params.categoryName}/>}
+                renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName}/>}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}

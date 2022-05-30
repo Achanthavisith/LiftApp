@@ -2,11 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Colors, Sizes, Fonts, Font } from "../styles/theme"
 import { useNavigation } from '@react-navigation/native';
 
+import Button from "../components/Button"
+import addButton from "../assets/add.png"
+
 
 const ExerciseCard = ( {data, equipment, catName} ) => {
 
-    const getListofEquipment = data.equipment.map( (requiredEquipment) => 
-            <Text key={requiredEquipment} style={{padding: Sizes.small, fontFamily: Font.light}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
+    //const getListofEquipment = data.equipment.map( (requiredEquipment) => 
+            //<Text key={requiredEquipment} style={{padding: Sizes.small, fontFamily: Font.light}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
 
     const navigation = useNavigation();
 
@@ -21,10 +24,15 @@ const ExerciseCard = ( {data, equipment, catName} ) => {
                 }>
             <View>
                 <View style={styles.exerciseProp}>
-                    <Text style={styles.light}>
-                        {data.name}
-                    </Text>
-                    <View style = {{flexDirection:'row', justifyContent: 'center', flexWrap: 'wrap'} }>{getListofEquipment}</View>
+                    <View>
+                        <Text style={styles.light}>
+                            {data.name}
+                        </Text>
+                    </View>
+
+                    <View style={{position: 'absolute', bottom: 40, right: 8}}>
+                        <Button img={addButton} />
+                    </View>
                 </View>
             </View>
         </TouchableOpacity>
@@ -35,8 +43,9 @@ const styles = StyleSheet.create ({
     light: {
         textAlign: 'center',
         color: Colors.blue,
-        fontSize: Fonts.small, 
-        fontFamily: Font.semiBold
+        fontSize: Fonts.extra, 
+        fontFamily: Font.semiBold,
+        flexWrap: 'wrap'
     }, 
 
     exerciseProp: {
@@ -49,7 +58,9 @@ const styles = StyleSheet.create ({
         margin : Sizes.large,
         height: 120,
         justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: Sizes.large, 
+        flexDirection: 'row'
     },
 })
 

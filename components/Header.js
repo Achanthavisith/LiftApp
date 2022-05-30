@@ -17,10 +17,11 @@ const Header = ( { onSearch } ) => {
   }
 
   const workoutsScreen = () => {
-    navigation.navigate('Workouts')
+    navigation.navigate('WorkoutWeek')
   }
 
   const route = useRoute();
+  
   return (
     <View style={styles.Header}>
       {route.name === "Categories" ? 

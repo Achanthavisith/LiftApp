@@ -73,7 +73,7 @@ const Header = ( { onSearch } ) => {
           </>
         :
         <>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View style={{marginLeft: 10}}>
             <Button img={BackArrow} onPress={goToPrevScreen}/>
           </View>

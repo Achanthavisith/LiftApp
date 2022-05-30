@@ -1,10 +1,11 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
+import { View, SafeAreaView, FlatList, ActivityIndicator, Text } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import CategoryCard from '../components/CategoryCard';
-import { Colors, Font, Fonts } from "../styles/theme"
+import { Colors } from "../styles/theme"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {API_KEY} from '@env'
 
@@ -13,21 +14,25 @@ const Home = () => {
     const [loading, isLoading] = useState(true);
 
     useEffect(() => {
-      const getExerciseCategory = async () => {
-        while(loading){
-          await axios.get('https://wger.de/api/v2/exercisecategory/',
+      const getExerciseCategory = () => {
+        AsyncStorage.getItem('categories').then((value) =>{
+          setExerciseCategory(JSON.parse(value));
+          isLoading(false);
+        })
+        
+        if(exerciseCategory.length===0) {
+          axios.get('https://wger.de/api/v2/exercisecategory/',
             {headers: {
               'Content-Type': 'application/json',
               'Authorization': API_KEY,
             }}).then((response) => {
-              setExerciseCategory(response.data.results);
+              AsyncStorage.setItem('categories',JSON.stringify(response.data.results));
+                setExerciseCategory(response.data.results);
               isLoading(false);
             }).catch((err) => {
-              console.log(err + " exerciseCategory");
-              isLoading(true);
-            });   
+              console.log(err + " home");
+            });
           }
-          console.log('fetched categories');
         }  
     getExerciseCategory();
     }, []);
@@ -50,6 +55,7 @@ const Home = () => {
                     justifyContent: 'center',
                     height: '80%'
                   }}/>
+                  <Text>Still Loading?</Text>
                   </View> 
                 </>
                 : 

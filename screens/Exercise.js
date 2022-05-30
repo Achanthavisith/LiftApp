@@ -1,6 +1,7 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {API_KEY} from '@env'
 
@@ -11,7 +12,6 @@ import { Colors } from "../styles/theme"
 const Exercise = ( {route} ) => {
   const [exercises, setExercises] = useState([]);
   const [loading, isLoading] = useState(true);
-  const [error, setError] = useState(true);
   const [filter, setFilter] = useState('');
 
   const handleSearch = (value) => {
@@ -24,24 +24,27 @@ const Exercise = ( {route} ) => {
 
   useEffect(() => {
       const getExercises = async () => {
-        if(error) {
-          await axios.get('https://wger.de/api/v2/exercise/?category='+route.params.categoryId+'&language=2&limit=60/',
+        await AsyncStorage.getItem('exercises').then((value) =>{
+          setExercises(JSON.parse(value));
+          isLoading(false);
+        })
+        
+        if(exercises.length===0) {
+          await axios.get('https://wger.de/api/v2/exercise/?language=2&limit=300',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY,
             }}).then((response) => {
+              AsyncStorage.setItem('exercises',JSON.stringify(response.data.results));
               setExercises(response.data.results);
-              setError(false);
               isLoading(false)
             }).catch((err) => {
-              setExercises([]);
-              setError(true);
               console.log(err + " exercises");
             })
         }
       }
     getExercises();
-  }, [error]);
+  }, []);
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -64,7 +67,10 @@ const Exercise = ( {route} ) => {
                 data={exercises.filter(exercises => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
-                  })}
+                  })
+                .filter(exercises => {
+                  return (exercises.category === route.params.categoryId)
+                })}
                 renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName}/>}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}

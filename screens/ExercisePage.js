@@ -1,6 +1,7 @@
 import { View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native'
 import axios from "axios"
 import { useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Colors } from "../styles/theme"
 import VideoCard from '../components/VideoCard'
@@ -18,15 +19,20 @@ const ExercisePage = ( {route} ) => {
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
-            setVideoList(response.data.items);
+            AsyncStorage.setItem('videos',JSON.stringify(response.data.items));
+            setVideoList(response.data.items)
             isLoading(false);
             }).catch((err) => {
+              AsyncStorage.getItem('videos').then((value) =>{
+                setVideoList(value);
+              })
               console.log(err + " videoList")
-              isLoading(true);
             });
   }
   getVideoList();
   }, []);
+
+  
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>

@@ -1,10 +1,10 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator, Text } from 'react-native';
+import { View, SafeAreaView, FlatList, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import CategoryCard from '../components/CategoryCard';
-import { Colors } from "../styles/theme"
+import { Colors, Font } from "../styles/theme"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {API_KEY} from '@env'
@@ -12,30 +12,36 @@ import {API_KEY} from '@env'
 const Home = () => {
     const [exerciseCategory, setExerciseCategory] = useState([]);
     const [loading, isLoading] = useState(true);
+    const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-      const getExerciseCategory = () => {
-        AsyncStorage.getItem('categories').then((value) =>{
-          setExerciseCategory(JSON.parse(value));
-          isLoading(false);
-        })
-        
-        if(exerciseCategory.length===0) {
+      const getExerciseCategory = async() => {
+
+        let values = await AsyncStorage.getItem('categories');
+
+        if(values === null){
           axios.get('https://wger.de/api/v2/exercisecategory/',
             {headers: {
               'Content-Type': 'application/json',
               'Authorization': API_KEY,
             }}).then((response) => {
               AsyncStorage.setItem('categories',JSON.stringify(response.data.results));
-                setExerciseCategory(response.data.results);
+              setExerciseCategory(response.data.results);
               isLoading(false);
+              console.log("fetched categories");
             }).catch((err) => {
               console.log(err + " home");
             });
-          }
-        }  
+        } else {
+          AsyncStorage.getItem('categories').then((value) =>{
+            setExerciseCategory(JSON.parse(value));
+            isLoading(false);
+            console.log("set categories from storage");
+          })
+        }
+      }  
     getExerciseCategory();
-    }, []);
+    }, [refresh]);
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -55,7 +61,9 @@ const Home = () => {
                     justifyContent: 'center',
                     height: '80%'
                   }}/>
-                  <Text>Still Loading?</Text>
+                    <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
+                      <Text style={{color:Colors.blue, fontFamily: Font.bold}}>Still Loading?</Text>
+                    </TouchableOpacity>
                   </View> 
                 </>
                 : 

@@ -1,13 +1,32 @@
 import { View, Text, SafeAreaView, StyleSheet, ActivityIndicator, FlatList, TextInput } from 'react-native';
 import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { Colors, Font, Sizes } from "../styles/theme";
 import ExerciseCard from '../components/ExerciseCard';
 import Header from '../components/Header';
 
-const Workouts = () => {
-    const [loading, isLoading] = useState(false);
+const Workouts = ( {route} ) => {
+    const [loading, isLoading] = useState(true);
     const [workouts, setWorkouts] = useState([]);
+
+    useEffect(() =>{
+        const getExercises = async() => {
+            let values = await AsyncStorage.getItem(route.params.dayName);
+
+            if (values === null) {
+                console.log('workouts are empty')
+                isLoading(false);
+            } else {
+                AsyncStorage.getItem(route.params.dayName).then((value) =>{
+                    setWorkouts(JSON.parse(value));
+                    isLoading(false);
+                    console.log("set Workouts from storage");
+                })
+            }
+        }
+    getExercises();
+    }, []);
 
     return (
         <SafeAreaView style={{backgroundColor: Colors.wood}}>

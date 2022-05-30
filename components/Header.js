@@ -38,7 +38,7 @@ const Header = ( { onSearch } ) => {
                 {route.name}
               </Text>
             </View>
-            <View style={{position: 'absolute', right: 20}}>
+            <View style={{position: 'absolute', right: 20, bottom: -15}}>
               <Button img={liftIcon} onPress={workoutsScreen}/>
             </View> 
           </View>

@@ -19,11 +19,11 @@ const ExercisePage = ( {route} ) => {
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
-            AsyncStorage.setItem('videos',JSON.stringify(response.data.items));
+            AsyncStorage.setItem(route.params.exerciseData.name,JSON.stringify(response.data.items));
             setVideoList(response.data.items)
             isLoading(false);
             }).catch((err) => {
-              AsyncStorage.getItem('videos').then((value) =>{
+              AsyncStorage.getItem(route.params.exerciseData.name).then((value) =>{
                 setVideoList(value);
               })
               console.log(err + " videoList")

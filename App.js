@@ -5,6 +5,8 @@ import { useFonts } from 'expo-font';
 import Home from './screens/Home';
 import Exercise from './screens/Exercise';
 import ExercisePage from './screens/ExercisePage';
+import WorkoutWeek from './screens/WorkoutWeek';
+import Workouts from './screens/Workouts';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +38,16 @@ const MyStack = () => {
             <Stack.Screen 
               name="Exercise Videos" 
               component={ExercisePage} 
+              options={ {headerShown:false} }
+            />
+            <Stack.Screen 
+              name="WorkoutWeek" 
+              component={WorkoutWeek} 
+              options={ {headerShown:false} }
+            />
+            <Stack.Screen 
+              name="Workouts" 
+              component={Workouts} 
               options={ {headerShown:false} }
             />
           </Stack.Navigator>

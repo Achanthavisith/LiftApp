@@ -1,10 +1,11 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator, TouchableOpacity,Text } from 'react-native';
+import { View, SafeAreaView, FlatList, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Header from '../components/Header';
 import CategoryCard from '../components/CategoryCard';
-import { Colors, Font, Fonts } from "../styles/theme"
+import { Colors, Font } from "../styles/theme"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {API_KEY} from '@env'
 
@@ -14,20 +15,36 @@ const Home = () => {
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-      const getExerciseCategory = async () => {
-        await axios.get('https://wger.de/api/v2/exercisecategory/',
-        {headers: {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY,
-        }}).then((response) => {
-            setExerciseCategory(response.data.results);
+      const getExerciseCategory = async() => {
+
+        let values = await AsyncStorage.getItem('categories');
+
+        if(values === null){
+          axios.get('https://wger.de/api/v2/exercisecategory/',
+            {headers: {
+              'Content-Type': 'application/json',
+              'Authorization': API_KEY,
+            }}).then((response) => {
+              AsyncStorage.setItem('categories',JSON.stringify(response.data.results));
+              setExerciseCategory(response.data.results);
+              isLoading(false);
+              console.log("fetched categories");
+            }).catch((err) => {
+              console.log(err + " home");
+            });
+        } else {
+          AsyncStorage.getItem('categories').then((value) =>{
+            setExerciseCategory(JSON.parse(value));
             isLoading(false);
-          }).catch((err) => {
-            console.log(err + " exerciseCategory")
-          });   
-    }
+            console.log("set categories from storage");
+          })
+        }
+      }  
     getExerciseCategory();
     }, [refresh]);
+
+    
+    //AsyncStorage.clear();
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -38,13 +55,17 @@ const Home = () => {
               {loading ? 
                 <>
                   <View style={{ 
-                    flex: 1, 
+                    flex:1,
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue}/>
+                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '80%'
+                  }}/>
                     <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{marginTop: 70, fontFamily: Font.semiBold, color: Colors.blue, fontSize: Fonts.small}}>Still Loading?</Text>
+                      <Text style={{color:Colors.blue, fontFamily: Font.bold, marginTop: 50}}>Still Loading?</Text>
                     </TouchableOpacity>
                   </View> 
                 </>

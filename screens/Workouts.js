@@ -1,4 +1,4 @@
-import { View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator, FlatList, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -58,7 +58,7 @@ const Workouts = ( {route} ) => {
                     <>
                         <FlatList
                             data={workouts}
-                            renderItem={({item}) => <ExerciseCard data={item} onRefresh={refreshWorkouts} day={route.params.dayName} />}
+                            renderItem={({item}) => <ExerciseCard data={item} onRefresh={refreshWorkouts} day={route.params.dayName}/>}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
                             ListHeaderComponent={<Header />}

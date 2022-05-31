@@ -80,7 +80,7 @@ const Header = ( { onSearch } ) => {
           </View>
         
           <View style={{position: 'absolute', right: 20}}>
-            <Button img={liftIcon} />
+            <Button img={liftIcon} onPress={workoutsScreen}/>
           </View> 
         </View>
         </>

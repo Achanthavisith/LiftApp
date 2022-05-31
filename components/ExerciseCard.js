@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import OptionsMenu from "react-native-option-menu";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute } from '@react-navigation/native'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import addButton from "../assets/add.png"
 import MinusButton from "../assets/minus.png"
@@ -13,11 +13,11 @@ import MinusButton from "../assets/minus.png"
 const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
 
     const navigation = useNavigation();
-
     const route = useRoute();
 
     const [weight, setWeight] = useState('');
     const [set, setSet] = useState('');
+    const [refresh, setRefresh] = useState(0);
 
     const alert = () => {
         Alert.alert(
@@ -28,6 +28,18 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
             ]
         );
     }
+
+    useEffect(() => {
+        const getWeightandSet = async() => {
+            AsyncStorage.getItem(day+"Weight:"+data.id).then((weight) => {
+                setWeight(weight);
+            })
+            AsyncStorage.getItem(day+"Set:"+data.id).then((set)=>{
+                setSet(set);
+            })  
+        }
+        getWeightandSet();
+    }, [])
     
     const addSunday = async() => {
         let values = await AsyncStorage.getItem('Sunday')
@@ -208,6 +220,8 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
         let remove = array.filter((values) => values.id !== data.id)
 
         AsyncStorage.setItem(day, JSON.stringify(remove));
+        AsyncStorage.removeItem(day+"Weight:"+data.id);
+        AsyncStorage.removeItem(day+"Set:"+data.id);
         onRefresh();
     }
 
@@ -223,10 +237,13 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
                 },
                 {
                     text: "OK",
-                    onPress: (e => setWeight(e))
+                    onPress: (e => {
+                        setWeight(e)
+                        AsyncStorage.setItem(day+"Weight:"+data.id, e);
+                    })
                 }
             ],
-            );
+        );
     }; 
 
     const addSet = () => {
@@ -241,13 +258,15 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
                 },
                 {
                     text: "OK",
-                    onPress: (e => setSet(e))
+                    onPress: (e => {
+                        setSet(e)
+                        AsyncStorage.setItem(day+"Set:"+data.id, e);
+                    })
                 }
             ],
-            );
+        );
     }
 
-    
     return (
         <View>
             {route.name ==='Workouts' ? 

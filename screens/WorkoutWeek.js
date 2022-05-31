@@ -6,7 +6,6 @@ import CategoryCard from '../components/CategoryCard'
 import Header from '../components/Header';
 
 const WorkoutWeek = () => {
-    const [loading, isLoading] = useState(false);
 
     const day= [{
         id:0,
@@ -38,30 +37,15 @@ const WorkoutWeek = () => {
             backgroundColor: Colors.wood,
             height: "100%"
             }}>
-                {loading ? 
-                <>
-                    <View style={{ 
-                        flex:1,
-                        alignItems: 'center',
-                        justifyContent: 'center', 
-                    }}>
-                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '80%'
-                    }}/>
-                    </View> 
-                </>
-                : 
-                    <FlatList
+                <FlatList
                         data={day}
                         renderItem={({item}) => <CategoryCard data={item} />}
                         keyExtractor={(item) => item.id}
                         showsVerticalScrollIndicator={false}
                         ListHeaderComponent={<Header />}
                         stickyHeaderIndices={[0]}
-                    />
-                }
+                />
+                
             </View>
         </SafeAreaView>
     )

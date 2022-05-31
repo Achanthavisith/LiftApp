@@ -43,6 +43,7 @@ const Home = () => {
     getExerciseCategory();
     }, [refresh]);
 
+    
     //AsyncStorage.clear();
 
   return (
@@ -64,7 +65,7 @@ const Home = () => {
                     height: '80%'
                   }}/>
                     <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{color:Colors.blue, fontFamily: Font.bold}}>Still Loading?</Text>
+                      <Text style={{color:Colors.blue, fontFamily: Font.bold, marginTop: 50}}>Still Loading?</Text>
                     </TouchableOpacity>
                   </View> 
                 </>

@@ -1,6 +1,7 @@
 import { View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native'
 import axios from "axios"
 import { useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Colors } from "../styles/theme"
 import VideoCard from '../components/VideoCard'
@@ -11,24 +12,34 @@ const ExercisePage = ( {route} ) => {
 
   const [videoList, setVideoList] = useState([]);
   const [loading, isLoading] = useState(true);
-  console.log(route.params.dataName)
+  
   useEffect(() => {
     const getVideoList = async () => {
+      let videos = await AsyncStorage.getItem(route.params.exerciseData.name);
+
+      if (videos === null) {
+        console.log('videos are empty... fetching');
         await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%workout%training&key='+ YT_KEY,
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
-            //AsyncStorage.setItem(route.params.exerciseData.name,JSON.stringify(response.data.items));
+            console.log('fetching videos');
+            AsyncStorage.setItem(route.params.exerciseData.name, JSON.stringify(response.data.items));
             setVideoList(response.data.items)
             isLoading(false);
             }).catch((err) => {
               console.log(err + " videoList")
             });
+      } else {
+        await AsyncStorage.getItem(route.params.exerciseData.name).then((videos) =>{
+          setVideoList(JSON.parse(videos));
+          isLoading(false);
+          console.log('set videos from storage');
+        })
+      }
   }
   getVideoList();
   }, []);
-
-  
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>

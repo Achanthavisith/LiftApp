@@ -1,41 +1,279 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { Colors, Sizes, Fonts, Font } from "../styles/theme"
 import { useNavigation } from '@react-navigation/native';
+import OptionsMenu from "react-native-option-menu";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRoute } from '@react-navigation/native'
+import { useState } from 'react'
 
-import Button from "../components/Button"
 import addButton from "../assets/add.png"
+import MinusButton from "../assets/minus.png"
 
 
-const ExerciseCard = ( {data, equipment, catName} ) => {
-
-    //const getListofEquipment = data.equipment.map( (requiredEquipment) => 
-            //<Text key={requiredEquipment} style={{padding: Sizes.small, fontFamily: Font.light}}> | {equipment.find(el => el.id === requiredEquipment)?.name} | </Text>) 
+const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
 
     const navigation = useNavigation();
 
-    return (
-        <TouchableOpacity 
-            onPress={()=> 
-                navigation.navigate(
-                "Exercise Videos", {
-                    exerciseData: data,
-                    categoryName: catName
-                })
-                }>
-            <View>
-                <View style={styles.exerciseProp}>
-                    <View>
-                        <Text style={styles.light}>
-                            {data.name}
-                        </Text>
-                    </View>
+    const route = useRoute();
 
-                    <View style={{position: 'absolute', bottom: 40, right: 8}}>
-                        <Button img={addButton} />
-                    </View>
-                </View>
-            </View>
-        </TouchableOpacity>
+    const alert = () => {
+        Alert.alert(
+            "Oops..",
+            "Already in the workout day",
+            [
+                { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+        );
+    }
+    
+    const addSunday = async() => {
+        let values = await AsyncStorage.getItem('Sunday')
+    
+        if(values===null) {
+            //init array 
+            let JsonArray = [];
+            let JsonObject = data;
+            //push the data
+            JsonArray.push(JsonObject);
+            //set the storage
+            AsyncStorage.setItem('Sunday', JSON.stringify(JsonArray));
+        } else {
+            //get the existing storage array
+            //parse it
+            let array = JSON.parse(values);
+            //check if workout is in day
+            let result = array.map(e => e.id).includes(data.id); 
+            if(result) {
+                alert();
+                console.log('already in workouts')
+            } else {
+               //push the new workout
+            array.push(data)
+            //set the new storage
+            AsyncStorage.setItem('Sunday', JSON.stringify(array));
+            }
+        }
+    }
+
+    const addMonday = async() => {
+        let values = await AsyncStorage.getItem('Monday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+            
+            JsonArray.push(JsonObject);
+            
+            AsyncStorage.setItem('Monday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+
+            if(result) {
+                alert();
+                console.log('already in workouts')
+            } else {
+                array.push(data)
+                AsyncStorage.setItem('Monday', JSON.stringify(array));
+            }
+        }
+    }
+
+    const addTuesday = async() =>{
+        let values = await AsyncStorage.getItem('Tuesday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+            
+            JsonArray.push(JsonObject);
+            
+            AsyncStorage.setItem('Tuesday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+
+                if(result) {
+                    alert();
+                    console.log('already in workouts')
+                } else {
+                    array.push(data)
+                    AsyncStorage.setItem('Tuesday', JSON.stringify(array));
+                }
+        }
+    }
+
+    const addWednesday = async() =>{
+        let values = await AsyncStorage.getItem('Tuesday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+
+            JsonArray.push(JsonObject);
+
+            AsyncStorage.setItem('Wednesday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+
+                if(result) {
+                    alert();
+                    console.log('already in workouts')
+                } else {
+                    array.push(data)
+                    AsyncStorage.setItem('Wednesday', JSON.stringify(array));
+                }
+        }
+    }
+
+    const addThursday = async() => {
+        let values = await AsyncStorage.getItem('Thursday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+
+            JsonArray.push(JsonObject);
+
+            AsyncStorage.setItem('Thursday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+
+                if(result) {
+                    alert();
+                    console.log('already in workouts')
+                } else {
+                    array.push(data)
+                    AsyncStorage.setItem('Thursday', JSON.stringify(array));
+                }
+    }
+    }
+
+    const addFriday = async() => {
+        let values = await AsyncStorage.getItem('Friday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+            
+            JsonArray.push(JsonObject);
+            
+            AsyncStorage.setItem('Friday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+
+                if(result) {
+                    alert();
+                    console.log('already in workouts')
+                } else {
+                    array.push(data)
+                    AsyncStorage.setItem('Friday', JSON.stringify(array));
+                }
+        }
+    }
+
+    const addSaturday = async() => {
+        let values = await AsyncStorage.getItem('Saturday')
+        
+        if(values===null) {
+            let JsonArray = [];
+            let JsonObject = data;
+            
+            JsonArray.push(JsonObject);
+
+            AsyncStorage.setItem('Saturday', JSON.stringify(JsonArray));
+        } else {
+            let array = JSON.parse(values);
+            let result = array.map(e => e.id).includes(data.id); 
+            
+                if(result) {
+                    alert();
+                    console.log('already in workouts')
+                } else {
+                    array.push(data)
+                    AsyncStorage.setItem('Saturday', JSON.stringify(array));
+                }
+        }
+    }
+
+    const deleteWorkout = async() => {
+        let values = await AsyncStorage.getItem(day);
+        let array = JSON.parse(values);
+        let remove = array.filter((values) => values.id !== data.id)
+
+        AsyncStorage.setItem(day, JSON.stringify(remove));
+        onRefresh();
+    }
+    
+    return (
+        <View>
+            {route.name ==='Workouts' ? 
+                    <>
+                        <TouchableOpacity 
+                            onPress={()=> 
+                                navigation.navigate(
+                                "Exercise Videos", {
+                                    exerciseData: data,
+                                    categoryName: catName
+                                })
+                            }>
+                            <View>
+                                <View style={styles.exerciseProp}>
+                                    <View>
+                                        <Text style={styles.light}>
+                                            {data.name}
+                                        </Text>
+                                    </View>
+
+                                    <View style={{position: 'absolute', bottom: 45, right: 10,}}>
+                                    <OptionsMenu
+                                        button={MinusButton}
+                                        buttonStyle={{ width: 35, height: 30, marginRight: 7.5, resizeMode: "contain" }}
+                                        destructiveIndex={0}
+                                        options={['Delete', "Cancel"]}
+                                        actions={[deleteWorkout]}
+                                    />
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </> 
+                : 
+                    <>
+                        <TouchableOpacity 
+                            onPress={()=> 
+                                navigation.navigate(
+                                "Exercise Videos", {
+                                    exerciseData: data,
+                                    categoryName: catName
+                                })
+                            }>
+                            <View>
+                                <View style={styles.exerciseProp}>
+                                    <View>
+                                        <Text style={styles.light}>
+                                            {data.name}
+                                        </Text>
+                                    </View>
+
+                                    <View style={{position: 'absolute', bottom: 45, right: 10,}}>
+                                    <OptionsMenu
+                                        button={addButton}
+                                        buttonStyle={{ width: 35, height: 30, marginRight: 7.5, resizeMode: "contain" }}
+                                        destructiveIndex={7}
+                                        options={["Sunday", "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Cancel"]}
+                                        actions={[addSunday, addMonday, addTuesday, addWednesday, addThursday, addFriday, addSaturday]}
+                                    />
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </>
+                }
+        </View>
     )
 }
 

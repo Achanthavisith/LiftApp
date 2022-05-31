@@ -43,6 +43,8 @@ const Home = () => {
     getExerciseCategory();
     }, [refresh]);
 
+    //AsyncStorage.clear();
+
   return (
     <SafeAreaView style={{backgroundColor: Colors.wood}}>
           <View style={{

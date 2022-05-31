@@ -1,7 +1,7 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator, TouchableOpacity, Text } from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {API_KEY} from '@env'
 
@@ -80,7 +80,7 @@ const Exercise = ( {route} ) => {
                 .filter(exercises => {
                   return (exercises.category === route.params.categoryId)
                 })}
-                renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName}/>}
+                renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName} />}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}

@@ -1,23 +1,29 @@
-import { View, Text, SafeAreaView, StyleSheet, ActivityIndicator, FlatList, TextInput } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { Colors, Font, Sizes } from "../styles/theme";
+import { Colors } from "../styles/theme";
 import ExerciseCard from '../components/ExerciseCard';
 import Header from '../components/Header';
 
 const Workouts = ( {route} ) => {
     const [loading, isLoading] = useState(true);
     const [workouts, setWorkouts] = useState([]);
+    const [refresh, setRefresh] = useState(0);
+
+    const refreshWorkouts = () => {
+        setRefresh(refresh + 1)
+    }
 
     useEffect(() =>{
         const getExercises = async() => {
             let values = await AsyncStorage.getItem(route.params.dayName);
-
+            //logic to get workouts
             if (values === null) {
                 console.log('workouts are empty')
                 isLoading(false);
             } else {
+                //get storage if values not empty
                 AsyncStorage.getItem(route.params.dayName).then((value) =>{
                     setWorkouts(JSON.parse(value));
                     isLoading(false);
@@ -26,7 +32,7 @@ const Workouts = ( {route} ) => {
             }
         }
     getExercises();
-    }, []);
+    }, [refresh]);
 
     return (
         <SafeAreaView style={{backgroundColor: Colors.wood}}>
@@ -52,7 +58,7 @@ const Workouts = ( {route} ) => {
                     <>
                         <FlatList
                             data={workouts}
-                            renderItem={({item}) => <ExerciseCard data={item} />}
+                            renderItem={({item}) => <ExerciseCard data={item} onRefresh={refreshWorkouts} day={route.params.dayName} />}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
                             ListHeaderComponent={<Header />}

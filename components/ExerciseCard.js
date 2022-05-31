@@ -16,6 +16,9 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
 
     const route = useRoute();
 
+    const [weight, setWeight] = useState('');
+    const [set, setSet] = useState('');
+
     const alert = () => {
         Alert.alert(
             "Oops..",
@@ -207,6 +210,43 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
         AsyncStorage.setItem(day, JSON.stringify(remove));
         onRefresh();
     }
+
+    const addWeight = () => {
+        Alert.prompt(
+            "Enter Weight",
+            "Lbs?, Kg?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: (e => setWeight(e))
+                }
+            ],
+            );
+    }; 
+
+    const addSet = () => {
+        Alert.prompt(
+            "Enter Set",
+            "4x10, 5x5",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: (e => setSet(e))
+                }
+            ],
+            );
+    }
+
     
     return (
         <View>
@@ -226,15 +266,21 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
                                         <Text style={styles.light}>
                                             {data.name}
                                         </Text>
+                                        <Text style={{textAlign: 'center', flexWrap: 'wrap', margin: 5}}>
+                                            Weight: {weight}    
+                                        </Text>
+                                        <Text style={{textAlign: 'center', flexWrap: 'wrap'}}>
+                                            Set: {set}
+                                        </Text>
                                     </View>
 
                                     <View style={{position: 'absolute', bottom: 45, right: 10,}}>
                                     <OptionsMenu
                                         button={MinusButton}
                                         buttonStyle={{ width: 35, height: 30, marginRight: 7.5, resizeMode: "contain" }}
-                                        destructiveIndex={0}
-                                        options={['Delete', "Cancel"]}
-                                        actions={[deleteWorkout]}
+                                        destructiveIndex={2}
+                                        options={['Weight','Sets', 'Delete', "Cancel"]}
+                                        actions={[addWeight,addSet,deleteWorkout]}
                                     />
                                     </View>
                                 </View>

@@ -11,10 +11,10 @@ const ExercisePage = ( {route} ) => {
 
   const [videoList, setVideoList] = useState([]);
   const [loading, isLoading] = useState(true);
-
+  console.log(route.params.dataName)
   useEffect(() => {
     const getVideoList = async () => {
-        await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=How%to%'+route.params.exerciseData.name+'%'+route.params.dataName+'%exercise&key='+ YT_KEY,
+        await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%workout%training&key='+ YT_KEY,
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {

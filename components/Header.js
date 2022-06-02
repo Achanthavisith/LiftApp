@@ -17,16 +17,6 @@ const Header = ( { onSearch, onRefresh } ) => {
     navigation.goBack();
   }
 
-  const alert = () => {
-    Alert.alert(
-        "Oops..",
-        "Already in the workout day",
-        [
-            { text: "OK", onPress: () => console.log("OK Pressed") }
-        ]
-    );
-  }
-
   const workoutsScreen = () => {
 
     if(route.name ==='Workouts') {

@@ -12,7 +12,7 @@ const ExercisePage = ( {route} ) => {
 
   const [videoList, setVideoList] = useState([]);
   const [loading, isLoading] = useState(true);
-  
+
   useEffect(() => {
     const getVideoList = async () => {
       let videos = await AsyncStorage.getItem(route.params.exerciseData.name);
@@ -41,6 +41,7 @@ const ExercisePage = ( {route} ) => {
   getVideoList();
   }, []);
 
+
   return (
     <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
       <View style={{
@@ -65,10 +66,10 @@ const ExercisePage = ( {route} ) => {
           <>
             <FlatList
                 data={videoList}
-                renderItem={({item}) => <VideoCard data ={item}/>}
+                renderItem={({item}) => <VideoCard data ={item} />}
                 keyExtractor={(item) => item.id.videoId}
                 showsVerticalScrollIndicator={false}
-                ListHeaderComponent={<Header />}
+                ListHeaderComponent={<Header  />}
                 stickyHeaderIndices={[0]}
             />
           </>

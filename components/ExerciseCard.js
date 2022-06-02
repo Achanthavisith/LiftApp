@@ -17,7 +17,6 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
 
     const [weight, setWeight] = useState('');
     const [set, setSet] = useState('');
-    const [refresh, setRefresh] = useState(0);
 
     const alert = () => {
         Alert.alert(
@@ -273,7 +272,7 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
                     <>
                         <TouchableOpacity 
                             onPress={()=> 
-                                navigation.navigate(
+                                navigation.replace(
                                 "Exercise Videos", {
                                     exerciseData: data,
                                     categoryName: catName

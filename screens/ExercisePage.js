@@ -42,9 +42,9 @@ const ExercisePage = ( {route} ) => {
   }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.wood}}>
+    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
       <View style={{
-        backgroundColor: Colors.wood,
+        backgroundColor: Colors.darkgrey,
         height: '100%'
       }}>
         {loading ? 
@@ -54,7 +54,7 @@ const ExercisePage = ( {route} ) => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    <ActivityIndicator size="large" color={Colors.almond} style={{ 
                     alignItems: 'center',
                     justifyContent: 'center',
                     height: '80%'

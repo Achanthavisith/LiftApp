@@ -119,7 +119,7 @@ const ExerciseCard = ( { data, catName, onRefresh, day } ) => {
     }
 
     const addWednesday = async() =>{
-        let values = await AsyncStorage.getItem('Tuesday')
+        let values = await AsyncStorage.getItem('Wednesday')
         
         if(values===null) {
             let JsonArray = [];

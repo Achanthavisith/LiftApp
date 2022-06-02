@@ -35,9 +35,9 @@ const Workouts = ( {route} ) => {
     }, [refresh]);
 
     return (
-        <SafeAreaView style={{backgroundColor: Colors.wood}}>
+        <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
             <View style={{
-            backgroundColor: Colors.wood,
+            backgroundColor: Colors.darkgrey,
             height: "100%"
             }}>
                 {loading ? 
@@ -61,7 +61,7 @@ const Workouts = ( {route} ) => {
                             renderItem={({item}) => <ExerciseCard data={item} onRefresh={refreshWorkouts} day={route.params.dayName}/>}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
-                            ListHeaderComponent={<Header />}
+                            ListHeaderComponent={<Header onRefresh={refreshWorkouts} />}
                             stickyHeaderIndices={[0]}
                         />
                     </>

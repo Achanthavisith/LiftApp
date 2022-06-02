@@ -47,9 +47,9 @@ const Home = () => {
     //AsyncStorage.clear();
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.wood}}>
+    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
           <View style={{
-            backgroundColor: Colors.wood,
+            backgroundColor: Colors.darkgrey,
             height: "100%"
             }}>
               {loading ? 
@@ -59,13 +59,12 @@ const Home = () => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue} style={{ 
+                    <ActivityIndicator size="large" color={Colors.almond} style={{ 
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: '80%'
                   }}/>
                     <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{color:Colors.blue, fontFamily: Font.bold, marginTop: 50}}>Still Loading?</Text>
+                      <Text style={{color:Colors.almond, fontFamily: Font.bold, marginTop: 50}}>Still Loading?</Text>
                     </TouchableOpacity>
                   </View> 
                 </>

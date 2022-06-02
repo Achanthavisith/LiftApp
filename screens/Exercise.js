@@ -53,9 +53,9 @@ const Exercise = ( {route} ) => {
   }
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.wood}}>
+    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
       <View style={{
-            backgroundColor: Colors.wood,
+            backgroundColor: Colors.darkgrey,
             height: "100%"
             }}>
               {loading ? 
@@ -65,9 +65,9 @@ const Exercise = ( {route} ) => {
                     alignItems: 'center',
                     justifyContent: 'center', 
                   }}>
-                    <ActivityIndicator size="large" color={Colors.blue} />
+                    <ActivityIndicator size="large" color={Colors.almond} />
                     <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                      <Text style={{color:Colors.blue, fontFamily: Font.bold}}>Still Loading?</Text>
+                      <Text style={{color:Colors.almond, fontFamily: Font.bold, marginTop: 50}}>Still Loading?</Text>
                     </TouchableOpacity>
                   </View> 
                 </> 

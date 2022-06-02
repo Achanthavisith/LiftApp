@@ -32,9 +32,9 @@ const WorkoutWeek = () => {
     ];
 
     return (
-        <SafeAreaView style={{backgroundColor: Colors.wood}}>
+        <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
             <View style={{
-            backgroundColor: Colors.wood,
+            backgroundColor: Colors.darkgrey,
             height: "100%"
             }}>
                 <FlatList

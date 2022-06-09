@@ -24,9 +24,10 @@ const Workouts = ( {route} ) => {
                 isLoading(false);
             } else {
                 //get storage if values not empty
-                    setWorkouts(values);
+                    setWorkouts(JSON.parse(values));
                     isLoading(false);
                     console.log("set Workouts from storage");
+                
             }
         }
     getExercises();

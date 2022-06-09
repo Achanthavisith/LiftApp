@@ -31,7 +31,7 @@ const ExercisePage = ( {route} ) => {
               console.log(err + " videoList")
             });
       } else {
-          setVideoList(videos);
+          setVideoList(JSON.parse(videos));
           isLoading(false);
           console.log('set videos from storage');
 

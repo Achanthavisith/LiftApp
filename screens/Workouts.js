@@ -24,11 +24,9 @@ const Workouts = ( {route} ) => {
                 isLoading(false);
             } else {
                 //get storage if values not empty
-                AsyncStorage.getItem(route.params.dayName).then((value) =>{
-                    setWorkouts(JSON.parse(value));
+                    setWorkouts(values);
                     isLoading(false);
                     console.log("set Workouts from storage");
-                })
             }
         }
     getExercises();

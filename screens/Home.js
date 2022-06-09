@@ -20,25 +20,23 @@ const Home = () => {
         let values = await AsyncStorage.getItem('categories');
 
         if(values === null){
-          axios.get('https://wger.de/api/v2/exercisecategory/',
+          try {
+            const categories = await axios.get('https://wger.de/api/v2/exercisecategory/',
             {headers: {
               'Content-Type': 'application/json',
               'Authorization': API_KEY,
-            }}).then((response) => {
-              AsyncStorage.setItem('categories',JSON.stringify(response.data.results));
-              setExerciseCategory(response.data.results);
-              isLoading(false);
-              console.log("fetched categories");
-            }).catch((err) => {
-              console.log(err + " home");
-            });
+            }})
+            setExerciseCategory(categories.data.results);
+            isLoading(false);
+          } catch (error) {
+            console.log(error + " home");
+          }
         } else {
-          AsyncStorage.getItem('categories').then((value) =>{
-            setExerciseCategory(JSON.parse(value));
+            setExerciseCategory(values);
             isLoading(false);
             console.log("set categories from storage");
-          })
-        }
+          }
+        
       }  
     getExerciseCategory();
     }, [refresh]);

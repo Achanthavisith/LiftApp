@@ -53,9 +53,9 @@ const Exercise = ( {route} ) => {
   }
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
+    <SafeAreaView style={{backgroundColor: Colors.blue}}>
       <View style={{
-            backgroundColor: Colors.darkgrey,
+            backgroundColor: Colors.white,
             height: "100%"
             }}>
               {loading ? 
@@ -72,20 +72,43 @@ const Exercise = ( {route} ) => {
                   </View> 
                 </> 
           :
-          <FlatList
+          <>
+          {route.params.muscleScreen == true ? 
+            <FlatList
                 data={exercises.filter(exercises => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
                   })
-                .filter(exercises => {
-                  return (exercises.category === route.params.categoryId)
-                })}
+                  .filter(exercises => {
+                    return (exercises.muscles.includes(route.params.categoryId))
+                  })
+              }
                 renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName} />}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}
                 stickyHeaderIndices={[0]}
-          />
+            />
+            :
+            <>
+              <FlatList
+                data={exercises.filter(exercises => {
+                  return (
+                    exercises.name.toLowerCase().includes(filter))
+                  })
+                  .filter(exercises => {
+                    return (exercises.category === route.params.categoryId)
+                  })
+              }
+                renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName} />}
+                keyExtractor={(item) => item.id} 
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={<Header onSearch={handleSearch} />}
+                stickyHeaderIndices={[0]}
+              />
+            </>
+          }
+          </>
         }
       </View>
     </SafeAreaView>

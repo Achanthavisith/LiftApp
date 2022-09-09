@@ -9,41 +9,40 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {API_KEY} from '@env'
 
-const Home = () => {
-    const [exerciseCategory, setExerciseCategory] = useState([]);
+const Muscle = () => {
+    const [muscle, setMuscle] = useState([]);
     const [loading, isLoading] = useState(true);
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-      const getExerciseCategory = async() => {
+      const getMuscles = async() => {
 
-        let values = await AsyncStorage.getItem('categories');
+        let values = await AsyncStorage.getItem('muscles');
 
         if(values === null){
           try {
-            const categories = await axios.get('https://wger.de/api/v2/exercisecategory/',
+            const muscle = await axios.get('https://wger.de/api/v2/muscle/',
             {headers: {
               'Content-Type': 'application/json',
               'Authorization': API_KEY,
             }})
-            setExerciseCategory(categories.data.results);
-            AsyncStorage.setItem('categories',JSON.stringify(categories.data.results));
+            console.log("fetched muscles");
+            AsyncStorage.setItem('muscles',JSON.stringify(muscle.data.results));
+            setMuscle(muscle.data.results);
             isLoading(false);
           } catch (error) {
             console.log(error + " home");
           }
         } else {
-            setExerciseCategory(JSON.parse(values));
+            setMuscle(JSON.parse(values));
             isLoading(false);
-            console.log("set categories from storage");
+            console.log("set muscles from storage");
           }
         
       }  
-    getExerciseCategory();
+    getMuscles();
     }, [refresh]);
 
-    
-    //AsyncStorage.clear();
 
   return (
     <SafeAreaView style={{backgroundColor: Colors.blue}}>
@@ -69,8 +68,8 @@ const Home = () => {
                 </>
                 : 
                   <FlatList
-                    data={exerciseCategory}
-                    renderItem={({item}) => <CategoryCard data={item} muscleScreen={false} />}
+                    data={muscle}
+                    renderItem={({item}) => <CategoryCard data={item} muscleScreen={true}/>}
                     keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
                     ListHeaderComponent={<Header />}
@@ -83,4 +82,4 @@ const Home = () => {
 }
 
 
-export default Home
+export default Muscle

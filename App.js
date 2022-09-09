@@ -7,6 +7,8 @@ import Exercise from './screens/Exercise';
 import ExercisePage from './screens/ExercisePage';
 import WorkoutWeek from './screens/WorkoutWeek';
 import Workouts from './screens/Workouts';
+import Footer from './components/Footer';
+import Muscle from './screens/Muscle';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,7 +52,13 @@ const MyStack = () => {
               component={Workouts} 
               options={ {headerShown:false} }
             />
+            <Stack.Screen 
+              name="Muscle" 
+              component={Muscle}  
+              options={ {headerShown:false} }
+            />
           </Stack.Navigator>
+          <Footer />
       </NavigationContainer>
   );
 };

@@ -34,9 +34,9 @@ const Workouts = ( {route} ) => {
     }, [refresh]);
 
     return (
-        <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
+        <SafeAreaView style={{backgroundColor: Colors.blue}}>
             <View style={{
-            backgroundColor: Colors.darkgrey,
+            backgroundColor: Colors.white,
             height: "100%"
             }}>
                 {loading ? 

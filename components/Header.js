@@ -92,7 +92,7 @@ const Header = ( { onSearch, onRefresh } ) => {
             }}
           >  
             <View>
-              <Text style={{color: Colors.almond, fontSize: Fonts.small, fontFamily: Font.bold, marginBottom: 0.5}}>
+              <Text style={{color: Colors.black, fontSize: Fonts.small, marginBottom: 0.5}}>
                 {route.name}
               </Text>
             </View>
@@ -117,8 +117,8 @@ const Header = ( { onSearch, onRefresh } ) => {
                 />
                 <TextInput
                   placeholder="Search for Exercise(s)"
-                  color={Colors.almond}
-                  placeholderTextColor={Colors.almond}
+                  color={Colors.black}
+                  placeholderTextColor={Colors.black}
                   style={{flex:1, fontFamily: Font.regular, marginLeft: Sizes.small}}
                   onChangeText={onSearch}
                 />
@@ -151,7 +151,8 @@ const Header = ( { onSearch, onRefresh } ) => {
 
 const styles = StyleSheet.create ({
   Header: {
-      backgroundColor: Colors.darkgrey,
+      backgroundColor: Colors.white,
+      paddingTop: '4%',
       shadowColor: Colors.black,
       shadowOffset: {width: 0, height: 5},
       shadowOpacity: 0.2,

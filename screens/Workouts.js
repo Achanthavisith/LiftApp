@@ -24,20 +24,19 @@ const Workouts = ( {route} ) => {
                 isLoading(false);
             } else {
                 //get storage if values not empty
-                AsyncStorage.getItem(route.params.dayName).then((value) =>{
-                    setWorkouts(JSON.parse(value));
+                    setWorkouts(JSON.parse(values));
                     isLoading(false);
                     console.log("set Workouts from storage");
-                })
+                
             }
         }
     getExercises();
     }, [refresh]);
 
     return (
-        <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
+        <SafeAreaView style={{backgroundColor: Colors.blue}}>
             <View style={{
-            backgroundColor: Colors.darkgrey,
+            backgroundColor: Colors.white,
             height: "100%"
             }}>
                 {loading ? 

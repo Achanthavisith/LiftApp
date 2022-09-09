@@ -21,24 +21,24 @@ const Exercise = ( {route} ) => {
       let values = await AsyncStorage.getItem('exercises');
 
       if(values === null){
-        axios.get('https://wger.de/api/v2/exercise/?language=2&limit=300',
+        try{
+          const exercise = await axios.get('https://wger.de/api/v2/exercise/?language=2&limit=300',
           {headers: {
             'Content-Type': 'application/json',
             'Authorization': API_KEY,
-          }}).then((response) => {
-            AsyncStorage.setItem('exercises',JSON.stringify(response.data.results));
-            setExercises(response.data.results);
-            isLoading(false);
-            console.log("fetched exercises");
-          }).catch((err) => {
-            console.log(err + " home");
-          });
+          }})
+          console.log("fetched exercises");
+          AsyncStorage.setItem('exercises',JSON.stringify(exercise.data.results));
+          setExercises(exercise.data.results);
+          isLoading(false);
+        } catch (error) {
+          console.log(err + "exercises");
+        }
       } else {
-        AsyncStorage.getItem('exercises').then((value) =>{
-          setExercises(JSON.parse(value));
+          setExercises(JSON.parse(values));
           isLoading(false);
           console.log("set exercises from storage");
-        })
+
       }
     }  
   getExercises();
@@ -53,9 +53,9 @@ const Exercise = ( {route} ) => {
   }
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
+    <SafeAreaView style={{backgroundColor: Colors.blue}}>
       <View style={{
-            backgroundColor: Colors.darkgrey,
+            backgroundColor: Colors.white,
             height: "100%"
             }}>
               {loading ? 
@@ -72,20 +72,43 @@ const Exercise = ( {route} ) => {
                   </View> 
                 </> 
           :
-          <FlatList
+          <>
+          {route.params.muscleScreen == true ? 
+            <FlatList
                 data={exercises.filter(exercises => {
                   return (
                     exercises.name.toLowerCase().includes(filter))
                   })
-                .filter(exercises => {
-                  return (exercises.category === route.params.categoryId)
-                })}
+                  .filter(exercises => {
+                    return (exercises.muscles.includes(route.params.categoryId))
+                  })
+              }
                 renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName} />}
                 keyExtractor={(item) => item.id} 
                 showsVerticalScrollIndicator={false}
                 ListHeaderComponent={<Header onSearch={handleSearch} />}
                 stickyHeaderIndices={[0]}
-          />
+            />
+            :
+            <>
+              <FlatList
+                data={exercises.filter(exercises => {
+                  return (
+                    exercises.name.toLowerCase().includes(filter))
+                  })
+                  .filter(exercises => {
+                    return (exercises.category === route.params.categoryId)
+                  })
+              }
+                renderItem={({item}) => <ExerciseCard data ={item} catName={route.params.categoryName} />}
+                keyExtractor={(item) => item.id} 
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={<Header onSearch={handleSearch} />}
+                stickyHeaderIndices={[0]}
+              />
+            </>
+          }
+          </>
         }
       </View>
     </SafeAreaView>

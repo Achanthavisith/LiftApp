@@ -19,7 +19,7 @@ const ExercisePage = ( {route} ) => {
 
       if (videos === null) {
         console.log('videos are empty... fetching');
-        await axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%workout%training&key='+ YT_KEY,
+        axios.get('https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+route.params.exerciseData.name+'%workout%training&key='+ YT_KEY,
         {headers: {
           'Content-Type': 'application/json'
           }}).then((response) => {
@@ -31,11 +31,10 @@ const ExercisePage = ( {route} ) => {
               console.log(err + " videoList")
             });
       } else {
-        await AsyncStorage.getItem(route.params.exerciseData.name).then((videos) =>{
           setVideoList(JSON.parse(videos));
           isLoading(false);
           console.log('set videos from storage');
-        })
+
       }
   }
   getVideoList();
@@ -43,9 +42,9 @@ const ExercisePage = ( {route} ) => {
 
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.darkgrey}}>
+    <SafeAreaView style={{backgroundColor: Colors.blue}}>
       <View style={{
-        backgroundColor: Colors.darkgrey,
+        backgroundColor: Colors.white,
         height: '100%'
       }}>
         {loading ? 

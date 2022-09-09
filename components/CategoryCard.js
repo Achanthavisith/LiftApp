@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native'
 
 import { Colors, Sizes, Font } from "../styles/theme";
 
-const CategoryCard = ({ data }) => {
+const CategoryCard = ({ data, muscleScreen }) => {
 
   const navigation = useNavigation();
 
@@ -31,13 +31,13 @@ const CategoryCard = ({ data }) => {
           onPress={() => navigation.navigate("Exercises", { 
             categoryId: data.id, 
             categoryName: data.name,
+            muscleScreen: muscleScreen
           })}
         >
           <View style={styles.exerciseProp}>
             <Text style={styles.light}>{data.name}</Text>
           </View>
         </TouchableOpacity>
-
         </>
       }
     </>

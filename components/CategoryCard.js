@@ -1,45 +1,48 @@
-import { View,Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useRoute } from '@react-navigation/native'
+import { useRoute } from "@react-navigation/native";
 
 import { Colors, Sizes, Font } from "../styles/theme";
 
 const CategoryCard = ({ data, muscleScreen }) => {
-
   const navigation = useNavigation();
 
   const route = useRoute();
 
   return (
     <>
-    {route.name === "WorkoutWeek" ? 
+      {route.name === "WorkoutWeek" ? (
         <>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Workouts", { 
-            dayId: data.id, 
-            dayName: data.name,
-            })}
+            onPress={() =>
+              navigation.navigate("Workouts", {
+                dayId: data.id,
+                dayName: data.name,
+              })
+            }
           >
-          <View style={styles.exerciseProp}>
-            <Text style={styles.light}>{data.name}</Text>
-          </View>
-        </TouchableOpacity>
-        </> 
-      : 
-        <>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Exercises", { 
-            categoryId: data.id, 
-            categoryName: data.name,
-            muscleScreen: muscleScreen
-          })}
-        >
-          <View style={styles.exerciseProp}>
-            <Text style={styles.light}>{data.name}</Text>
-          </View>
-        </TouchableOpacity>
+            <View style={styles.exerciseProp}>
+              <Text style={styles.light}>{data.name}</Text>
+            </View>
+          </TouchableOpacity>
         </>
-      }
+      ) : (
+        <>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Exercises", {
+                categoryId: data.id,
+                categoryName: data.name,
+                muscleScreen: muscleScreen,
+              })
+            }
+          >
+            <View style={styles.exerciseProp}>
+              <Text style={styles.light}>{data.name}</Text>
+            </View>
+          </TouchableOpacity>
+        </>
+      )}
     </>
   );
 };
@@ -47,21 +50,20 @@ const CategoryCard = ({ data, muscleScreen }) => {
 const styles = StyleSheet.create({
   light: {
     textAlign: "center",
-    color: Colors.blue,
-    fontFamily: Font.semiBold
+    color: Colors.black,
+    fontFamily: Font.semiBold,
   },
 
   exerciseProp: {
     shadowColor: "#171717",
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
-    shadowRadius: 3,
     backgroundColor: Colors.almond,
     padding: Sizes.large,
     margin: Sizes.large,
     height: 120,
     justifyContent: "center",
-    borderRadius: Sizes.large,
+    borderWidth: 1,
   },
   image: {
     justifyContent: "center",

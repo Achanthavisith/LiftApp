@@ -1,4 +1,12 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -20,14 +28,20 @@ const Home = () => {
 
       if (values === null) {
         try {
-          const categories = await axios.get("https://wger.de/api/v2/exercisecategory/", {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: process.env.API_KEY,
-            },
-          });
+          const categories = await axios.get(
+            "https://wger.de/api/v2/exercisecategory/",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: process.env.API_KEY,
+              },
+            }
+          );
           setExerciseCategory(categories.data.results);
-          AsyncStorage.setItem("categories", JSON.stringify(categories.data.results));
+          AsyncStorage.setItem(
+            "categories",
+            JSON.stringify(categories.data.results)
+          );
           isLoading(false);
         } catch (error) {
           console.log(error + " home");
@@ -44,40 +58,60 @@ const Home = () => {
   //AsyncStorage.clear();
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.blue }}>
-      <View
-        style={{
-          backgroundColor: Colors.white,
-          height: "100%",
-        }}
-      >
-        {loading ? (
-          <>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ActivityIndicator
-                size="large"
-                color={Colors.blue}
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={{ backgroundColor: Colors.white }}>
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            height: "100%",
+          }}
+        >
+          {loading ? (
+            <>
+              <View
                 style={{
+                  flex: 1,
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-              />
-              <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                <Text style={{ color: Colors.blue, fontFamily: Font.bold, marginTop: 50 }}>Still Loading?</Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : (
-          <FlatList data={exerciseCategory} renderItem={({ item }) => <CategoryCard data={item} muscleScreen={false} />} keyExtractor={(item) => item.id} showsVerticalScrollIndicator={false} ListHeaderComponent={<Header />} stickyHeaderIndices={[0]} />
-        )}
-      </View>
-    </SafeAreaView>
+              >
+                <ActivityIndicator
+                  size="large"
+                  color={Colors.blue}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                />
+                <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
+                  <Text
+                    style={{
+                      color: Colors.blue,
+                      fontFamily: Font.bold,
+                      marginTop: 50,
+                    }}
+                  >
+                    Still Loading?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <FlatList
+              data={exerciseCategory}
+              renderItem={({ item }) => (
+                <CategoryCard data={item} muscleScreen={false} />
+              )}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={<Header />}
+              stickyHeaderIndices={[0]}
+            />
+          )}
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

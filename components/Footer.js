@@ -11,20 +11,28 @@ const footer = () => {
 
   return (
     <View style={styles.footer}>
-      <TouchableOpacity style={{ padding: "5%" }} onPress={() => navigation.navigate("Muscle")}>
+      <TouchableOpacity
+        style={{ padding: "5%" }}
+        onPress={() => navigation.navigate("Muscle")}
+      >
         <Icon type="feather" name="align-justify" />
         <Text>By Muscle</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ padding: "5%" }} onPress={() => navigation.navigate("Categories")}>
+      <TouchableOpacity
+        style={{ padding: "5%" }}
+        onPress={() => navigation.navigate("Categories")}
+      >
         <Icon type="feather" name="home" />
         <Text>By Group</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={{ padding: "5%" }}
-        onPress={() => {
-          AsyncStorage.clear();
+        onPress={async () => {
+          await AsyncStorage.getAllKeys()
+            .then((keys) => AsyncStorage.multiRemove(keys))
+            .then(() => alert("success"));
         }}
       >
         <Icon type="feather" name="trash-2" />

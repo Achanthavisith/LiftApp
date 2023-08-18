@@ -1,4 +1,12 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -43,40 +51,60 @@ const Muscle = () => {
   }, [refresh]);
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.blue }}>
-      <View
-        style={{
-          backgroundColor: Colors.white,
-          height: "100%",
-        }}
-      >
-        {loading ? (
-          <>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ActivityIndicator
-                size="large"
-                color={Colors.blue}
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={{ backgroundColor: Colors.white }}>
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            height: "100%",
+          }}
+        >
+          {loading ? (
+            <>
+              <View
                 style={{
+                  flex: 1,
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-              />
-              <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
-                <Text style={{ color: Colors.blue, fontFamily: Font.bold, marginTop: 50 }}>Still Loading?</Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : (
-          <FlatList data={muscle} renderItem={({ item }) => <CategoryCard data={item} muscleScreen={true} />} keyExtractor={(item) => item.id} showsVerticalScrollIndicator={false} ListHeaderComponent={<Header />} stickyHeaderIndices={[0]} />
-        )}
-      </View>
-    </SafeAreaView>
+              >
+                <ActivityIndicator
+                  size="large"
+                  color={Colors.blue}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                />
+                <TouchableOpacity onPress={() => setRefresh(refresh + 1)}>
+                  <Text
+                    style={{
+                      color: Colors.blue,
+                      fontFamily: Font.bold,
+                      marginTop: 50,
+                    }}
+                  >
+                    Still Loading?
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <FlatList
+              data={muscle}
+              renderItem={({ item }) => (
+                <CategoryCard data={item} muscleScreen={true} />
+              )}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={<Header />}
+              stickyHeaderIndices={[0]}
+            />
+          )}
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

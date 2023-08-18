@@ -1,4 +1,10 @@
-import { View, SafeAreaView, ActivityIndicator, FlatList } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  ActivityIndicator,
+  FlatList,
+  StatusBar,
+} from "react-native";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,14 +24,23 @@ const ExercisePage = ({ route }) => {
       if (videos === null) {
         console.log("videos are empty... fetching");
         axios
-          .get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=" + route.params.exerciseData.name + "%workout%training&key=" + process.env.YT_KEY, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
+          .get(
+            "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=" +
+              route.params.exerciseData.name +
+              "%workout%training&key=" +
+              process.env.YT_KEY,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             console.log("fetching videos");
-            AsyncStorage.setItem(route.params.exerciseData.name, JSON.stringify(response.data.items));
+            AsyncStorage.setItem(
+              route.params.exerciseData.name,
+              JSON.stringify(response.data.items)
+            );
             setVideoList(response.data.items);
             isLoading(false);
           })
@@ -42,40 +57,50 @@ const ExercisePage = ({ route }) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.blue }}>
-      <View
-        style={{
-          backgroundColor: Colors.white,
-          height: "100%",
-        }}
-      >
-        {loading ? (
-          <>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ActivityIndicator
-                size="large"
-                color={Colors.almond}
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={{ backgroundColor: Colors.white }}>
+        <View
+          style={{
+            backgroundColor: Colors.white,
+            height: "100%",
+          }}
+        >
+          {loading ? (
+            <>
+              <View
                 style={{
+                  flex: 1,
                   alignItems: "center",
                   justifyContent: "center",
-                  height: "80%",
                 }}
+              >
+                <ActivityIndicator
+                  size="large"
+                  color={Colors.almond}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "80%",
+                  }}
+                />
+              </View>
+            </>
+          ) : (
+            <>
+              <FlatList
+                data={videoList}
+                renderItem={({ item }) => <VideoCard data={item} />}
+                keyExtractor={(item) => item.id.videoId}
+                showsVerticalScrollIndicator={false}
+                ListHeaderComponent={<Header />}
+                stickyHeaderIndices={[0]}
               />
-            </View>
-          </>
-        ) : (
-          <>
-            <FlatList data={videoList} renderItem={({ item }) => <VideoCard data={item} />} keyExtractor={(item) => item.id.videoId} showsVerticalScrollIndicator={false} ListHeaderComponent={<Header />} stickyHeaderIndices={[0]} />
-          </>
-        )}
-      </View>
-    </SafeAreaView>
+            </>
+          )}
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 

@@ -12,7 +12,8 @@
       "backgroundColor": "#deb887"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/9e3679f3-0b4e-4cb6-8785-99ad0694e163"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -32,6 +33,14 @@
       "favicon": "./assets/favicon.png"
     },
     "description": "•\tOpen-Source REST API Implemented: https://wger.de/en/\n•\tReturns exercises per muscle group then displaying demonstrations of the exercise on YouTube.\n",
-    "githubUrl": "https://github.com/Achanthavisith/LiftApp"
+    "githubUrl": "https://github.com/Achanthavisith/LiftApp",
+    "extra": {
+      "eas": {
+        "projectId": "9e3679f3-0b4e-4cb6-8785-99ad0694e163"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }
